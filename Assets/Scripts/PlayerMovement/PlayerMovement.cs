@@ -3,6 +3,38 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool IsMoving
+    {
+        get
+        {
+            return playerController.velocity.magnitude > playerSpeed / 2;
+        }
+    }
+
+    public bool IsGrounded
+    {
+        get
+        {
+            Vector3 origin = transform.position - Vector3.down * groundCheckDistance * 0.5f;
+            Vector3 dir = Vector3.down * groundCheckDistance;
+
+            Debug.DrawRay(origin, dir, Color.red);
+
+            return Physics.Raycast(origin, dir, groundCheckDistance, groundLayer);
+        }
+    }
+
+    public Vector3 InputDirection
+    {
+        get
+        {
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            
+            return new Vector3(horizontal, 0, vertical);
+        }
+    }
+
     [Header("Movement")]
     
     [SerializeField]
@@ -16,7 +48,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Head Rotation")]
     [SerializeField]
     private GameObject playerHead;
-    
+
+    [SerializeField]
+    private Camera playerCamera;
+
     [SerializeField]
     private float cameraSensitivity = 100f;
     
@@ -25,9 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float groundCheckDistance = 0.4f;
-
-    [SerializeField]
-    private Camera playerCamera;
     
     private CharacterController playerController;
     private float gravity;
@@ -56,22 +88,9 @@ public class PlayerMovement : MonoBehaviour
         HeadRotation();
     }
 
-    private bool isGrounded()
-    {
-        Vector3 origin = transform.position - Vector3.down * groundCheckDistance * 0.5f;
-        Vector3 dir = Vector3.down * groundCheckDistance;
-
-        Debug.DrawRay(origin, dir, Color.red);
-
-        return Physics.Raycast(origin, dir, groundCheckDistance, groundLayer);
-    }
-
     private Vector3 BuildWishVelocity()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        
-        Vector3 wishVelocity = transform.forward * vertical + transform.right * horizontal;
+        Vector3 wishVelocity = transform.forward * InputDirection.z + transform.right * InputDirection.x;
         wishVelocity.Normalize();
 
         return wishVelocity;
@@ -83,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocity = playerController.velocity;
 
-        if (!isGrounded())
+        if (!IsGrounded)
         {
             velocity.y -= gravity * Time.deltaTime;
 
@@ -110,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);
         
         transform.Rotate(Vector3.up * mouseX * cameraSensitivity);
-        playerCamera.transform.localEulerAngles = Vector3.right * xRotation;
+        playerHead.transform.localEulerAngles = Vector3.right * xRotation;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
