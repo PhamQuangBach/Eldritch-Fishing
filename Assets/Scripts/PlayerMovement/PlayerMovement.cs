@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         if (Cursor.visible)
             return;
 
+        Debug.DrawRay(transform.position, currentVelocity);
+
         Movement();
         HeadRotation();
     }
@@ -111,5 +113,15 @@ public class PlayerMovement : MonoBehaviour
         playerCamera.transform.localEulerAngles = Vector3.right * xRotation;
     }
 
-    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Vector3 normal = hit.normal;
+
+        // Checking if the player is colliding with a wall
+        if (normal.y == 0)
+        {
+            // Removing the velocity in the direction of the wall
+            currentVelocity -= normal * Vector3.Dot(currentVelocity, normal);
+        }
+    }
 }
