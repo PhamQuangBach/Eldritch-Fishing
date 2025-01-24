@@ -55,8 +55,6 @@ public class PlayerHeadBobbing : MonoBehaviour
             0
         );
 
-        Debug.Log(rotation);
-
         rotateCameraTo = rotation;
 
         curTime += Time.deltaTime;

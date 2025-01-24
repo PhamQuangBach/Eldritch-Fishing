@@ -60,7 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float groundCheckDistance = 0.4f;
-    
+
+    [Header("Slope")]
+    [SerializeField]
+    private GameObject playerFeet;
+
+    [SerializeField]
+    private float slopeDistance = 5f;
+
     private CharacterController playerController;
     private float gravity;
 
@@ -86,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
         Movement();
         HeadRotation();
+        PlayerSlope();
     }
 
     private Vector3 BuildWishVelocity()
@@ -131,6 +139,28 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX * cameraSensitivity);
         playerHead.transform.localEulerAngles = Vector3.right * xRotation;
     }
+
+    private void PlayerSlope()
+    {
+        RaycastHit hit;
+
+        if (!Physics.Raycast(playerFeet.transform.position, Vector3.down, out hit, slopeDistance, groundLayer))
+            return;
+
+        Vector3 normal = hit.normal;
+
+
+        if (normal.y < 0.9f)
+        {
+            Vector3 slopeDirection = Vector3.Cross(Vector3.up, normal);
+            Vector3 slopeVelocity = slopeDirection * playerSpeed * 0.5f * Time.deltaTime;
+            Vector3 velocity = playerController.velocity;
+
+            velocity += slopeVelocity;
+
+            playerController.SimpleMove(velocity);
+        }
+    } 
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
