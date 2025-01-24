@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Sprite[] reticleImages;
 
+    private IInteractable currentInteractableObject;
+
     private int toolState = 0;
     private bool atFishingSpot = false;
 
@@ -40,36 +42,34 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && atFishingSpot){
-            StartFishing();
+        if (Input.GetButtonDown("Fire1") && currentInteractableObject != null){
+            currentInteractableObject.OnInteract();
         }
     }
 
     void FixedUpdate(){
-        GameObject fishingSpot = CheckFishingSpot();
+        IInteractable newInteractableObject = CheckInteractable();
 
-        if  (fishingSpot != null){
-            playerReticle.sprite = reticleImages[1];
-            atFishingSpot = true;
+        if (!ReferenceEquals(newInteractableObject, currentInteractableObject)){
+            if (currentInteractableObject != null){
+               currentInteractableObject.OnDeHighlight(); 
+            }
+            if (newInteractableObject != null){
+                newInteractableObject.OnHighlight();
+            }
         }
-        else{
-            playerReticle.sprite = reticleImages[0];
-            atFishingSpot = false;
-        }
+        currentInteractableObject = newInteractableObject;
     }
 
-    GameObject CheckFishingSpot(){
+    IInteractable CheckInteractable(){
         Vector3 forwardDirection = mainCamera.transform.forward;
         RaycastHit hit;
-        if  (Physics.Raycast(mainCamera.transform.position, forwardDirection, out hit, 10, LayerMask.GetMask("FishingSpot"))){
-            return hit.collider.gameObject;
+        if  (Physics.Raycast(mainCamera.transform.position, forwardDirection, out hit, 10)){
+            return hit.collider.gameObject.GetComponent<IInteractable>();
         }
         else{
             return null;
         }
     }
 
-    void StartFishing(){
-        Debug.Log("Start Fishing");
-    }
 }
