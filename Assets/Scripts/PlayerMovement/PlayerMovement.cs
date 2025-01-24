@@ -3,14 +3,27 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    [Header("Movement")]
+    
     [SerializeField]
     private float playerSpeed = 5f;
     
     [SerializeField]
+    private float floorRateSpeed = 1f;
+    private float airRateSpeed = 0.5f;
+
+
+    [SerializeField]
     private GameObject playerHead;
+    
     [SerializeField]
     private float cameraSensitivity = 100f;
+    
+    [SerializeField]
+    private LayerMask groundLayer;
+
+    [SerializeField]
+    private float groundCheckDistance = 0.4f;
 
     [SerializeField]
     private Camera playerCamera;
@@ -19,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     private float gravity;
 
     private float xRotation = 0f;
+    private float currentRateSpeed;
+    private Vector3 currentVelocity = Vector3.zero;
 
     private void Start()
     {
@@ -38,6 +53,16 @@ public class PlayerMovement : MonoBehaviour
         HeadRotation();
     }
 
+    private bool isGrounded()
+    {
+        Vector3 origin = transform.position - Vector3.down * groundCheckDistance * 0.5f;
+        Vector3 dir = Vector3.down * groundCheckDistance;
+
+        Debug.DrawRay(origin, dir, Color.red);
+
+        return Physics.Raycast(origin, dir, groundCheckDistance, groundLayer);
+    }
+
     private Vector3 BuildWishVelocity()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -51,9 +76,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 velocity = BuildWishVelocity() * playerSpeed;
+        Vector3 wishVelocity = BuildWishVelocity() * playerSpeed;
 
-        playerController.Move(velocity * Time.deltaTime);
+        Vector3 velocity = playerController.velocity;
+
+        if (!isGrounded())
+        {
+            velocity.y -= gravity * Time.deltaTime;
+
+            playerController.SimpleMove(velocity);
+
+            currentRateSpeed = airRateSpeed;
+        } 
+        else
+        {
+            currentRateSpeed = floorRateSpeed;
+        }
+
+        currentVelocity = Vector3.Lerp(currentVelocity, wishVelocity, currentRateSpeed * Time.deltaTime);
+
+        playerController.Move(currentVelocity);
     }
 
     private void HeadRotation()
@@ -67,4 +109,6 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX * cameraSensitivity);
         playerCamera.transform.localEulerAngles = Vector3.right * xRotation;
     }
+
+    
 }
