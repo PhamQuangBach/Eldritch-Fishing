@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private Sprite[] reticleImages;
 
     private int toolState = 0;
+    private bool atFishingSpot = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,18 +40,21 @@ public class Player : MonoBehaviour
             }
         }
 
-
-
-        //if (Input.GetKeyDown())
+        if (Input.GetButtonDown("Fire1") && atFishingSpot){
+            StartFishing();
+        }
     }
 
     void FixedUpdate(){
         GameObject fishingSpot = CheckFishingSpot();
+
         if  (fishingSpot != null){
             playerReticle.sprite = reticleImages[1];
+            atFishingSpot = true;
         }
         else{
             playerReticle.sprite = reticleImages[0];
+            atFishingSpot = false;
         }
     }
 
@@ -63,5 +67,9 @@ public class Player : MonoBehaviour
         else{
             return null;
         }
+    }
+
+    void StartFishing(){
+        Debug.Log("Start Fishing");
     }
 }
