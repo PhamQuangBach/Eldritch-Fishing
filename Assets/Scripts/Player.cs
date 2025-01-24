@@ -1,5 +1,7 @@
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +10,12 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject mainCamera;
+
+    [SerializeField]
+    private Image playerReticle;
+
+    [SerializeField]
+    private Sprite[] reticleImages;
 
     private int toolState = 0;
 
@@ -37,10 +45,23 @@ public class Player : MonoBehaviour
     }
 
     void FixedUpdate(){
+        GameObject fishingSpot = CheckFishingSpot();
+        if  (fishingSpot != null){
+            playerReticle.sprite = reticleImages[1];
+        }
+        else{
+            playerReticle.sprite = reticleImages[0];
+        }
+    }
+
+    GameObject CheckFishingSpot(){
         Vector3 forwardDirection = mainCamera.transform.forward;
         RaycastHit hit;
         if  (Physics.Raycast(mainCamera.transform.position, forwardDirection, out hit, 10, LayerMask.GetMask("FishingSpot"))){
-            Debug.Log("akfhoseihfowegfbjowebfvoew");
+            return hit.collider.gameObject;
+        }
+        else{
+            return null;
         }
     }
 }
