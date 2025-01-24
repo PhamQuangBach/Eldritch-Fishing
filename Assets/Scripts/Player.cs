@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     private IInteractable currentInteractableObject;
 
     private int toolState = 0;
-    private bool atFishingSpot = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
