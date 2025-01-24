@@ -10,9 +10,10 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField]
     private float floorRateSpeed = 1f;
+    [SerializeField]
     private float airRateSpeed = 0.5f;
 
-
+    [Header("Head Rotation")]
     [SerializeField]
     private GameObject playerHead;
     
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 wishVelocity = BuildWishVelocity() * playerSpeed;
+        Vector3 wishVelocity = BuildWishVelocity();
 
         Vector3 velocity = playerController.velocity;
 
@@ -95,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentVelocity = Vector3.Lerp(currentVelocity, wishVelocity, currentRateSpeed * Time.deltaTime);
 
-        playerController.Move(currentVelocity);
+        playerController.Move(currentVelocity * playerSpeed * Time.deltaTime);
     }
 
     private void HeadRotation()

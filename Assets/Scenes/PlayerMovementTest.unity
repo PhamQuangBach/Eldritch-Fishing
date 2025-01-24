@@ -290,7 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5074f608e08515499363704c00cd687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 5
+  playerSpeed: 10
+  floorRateSpeed: 10
+  airRateSpeed: 3
   playerHead: {fileID: 1067196325}
   cameraSensitivity: 3
   groundLayer:
