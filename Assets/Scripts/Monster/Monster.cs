@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
+using System.Collections;
 
 
 public enum MonsterState
@@ -19,24 +19,33 @@ public class Monster : MonoBehaviour
     private float monsterSpeed = 5f;
 
     [SerializeField]
+    private float pointDistance = 0.5f;
+
+    [SerializeField]
     private Transform attackPoint;
 
     [SerializeField]
     private float attackAngle = 60f;
 
+    [SerializeField]
+    private float attackDistance = 2f;
+
+    [SerializeField]
+    private float attackRestartTime = 5f;
+
+    [SerializeField]
+    private float safeDinstance = 18f;
+
     private CharacterController monsterController;
 
-    private MonsterState monsterState = MonsterState.Move; 
+    private MonsterState currentMonsterState = MonsterState.Move;
+
     private int currentMoveToPointIndex = 0;
     private Transform currentMoveToPoint;
-
     private Vector3 monsterVelocity;
-
     private bool reverse = false;
-
+    private bool canAttack = true;
     private PlayerMovement playerMovement;
-
-    private MonsterState currentMonsterState = MonsterState.Move;
 
     private void Start()
     {
@@ -65,7 +74,7 @@ public class Monster : MonoBehaviour
         LookAtPlayer();
 
         Debug.DrawRay(transform.position, monsterVelocity, Color.red);
-        Debug.DrawRay(attackPoint.position, attackPoint.forward * 10f, Color.green);
+        Debug.DrawRay(attackPoint.position, attackPoint.forward * safeDinstance, Color.green);
     }
 
     private Vector3 GetDirectcion()
@@ -109,10 +118,17 @@ public class Monster : MonoBehaviour
 
         float dinstance = DistanceToMoveToPoint();
 
-        if (dinstance < 0.5f)
+        if (dinstance < pointDistance)
         {
             ChangePoint();
         }
+    }
+
+    private IEnumerator restartAttack()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackRestartTime);
+        canAttack = true;
     }
 
     private void AttackMovement()
@@ -128,10 +144,11 @@ public class Monster : MonoBehaviour
 
         float distance = Vector3.Distance(monsterPos, playerPos);
 
-        
-
-        Debug.Log(distance);
-        //if (distance >= )
+        if (distance >= safeDinstance)
+        {
+            currentMonsterState = MonsterState.Move;
+            StartCoroutine(restartAttack());
+        }
     }
 
     private void LookAtPlayer()
@@ -147,7 +164,7 @@ public class Monster : MonoBehaviour
 
         float angle = Vector3.Angle(monsterVelocity.normalized, attackPoint.forward);
 
-        if (angle <= attackAngle)
+        if (angle <= attackAngle && canAttack)
         {
             currentMonsterState = MonsterState.Attack;
         }

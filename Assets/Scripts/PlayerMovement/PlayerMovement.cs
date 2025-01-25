@@ -1,6 +1,12 @@
 using UnityEngine;
 
 
+public enum PlayerState
+{
+    None,
+    Frozen
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     public Vector3 Velocity
@@ -85,8 +91,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject playerFeet;
 
-    [SerializeField]
-    private float slopeDistance = 5f;
+    private PlayerState currentPlayerState = PlayerState.None;
 
     private CharacterController playerController;
     private float gravity;
@@ -112,7 +117,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Movement();
+        if (GameManager.IsPaused)
+            return;
+
+        if (currentPlayerState == PlayerState.None)
+            Movement();
+
         CameraRotation();
     }
 
