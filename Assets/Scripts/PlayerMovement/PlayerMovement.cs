@@ -4,7 +4,8 @@ using UnityEngine;
 public enum PlayerState
 {
     None,
-    Frozen
+    Frozen,
+    Dead
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -59,6 +60,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public bool IsAlive
+    {
+        get
+        {
+            return currentPlayerState != PlayerState.Dead;
+        }
+    }
+
     public static PlayerMovement instance;
 
     [Header("Movement")]
@@ -104,6 +113,8 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 realVelocity;
 
+    private Vector3 positionCameraPos = Vector3.zero;
+
     private void Start()
     {
         playerController = GetComponent<CharacterController>();
@@ -120,10 +131,20 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.IsPaused)
             return;
 
-        if (currentPlayerState == PlayerState.None)
-            Movement();
+        switch (currentPlayerState)
+        {
+            case PlayerState.None:
+                Movement();
+                break;
+            case PlayerState.Frozen:
+                break;
+            case PlayerState.Dead:
+                DeathMovement();
+                break;
+        }
 
-        CameraRotation();
+        if (currentPlayerState != PlayerState.Dead)
+            CameraRotation();
     }
 
     private Vector3 BuildWishVelocity()
@@ -180,5 +201,20 @@ public class PlayerMovement : MonoBehaviour
             // Removing the velocity in the direction of the wall
             currentVelocity -= normal * Vector3.Dot(currentVelocity, normal);
         }
+    }
+
+    private void DeathMovement()
+    {
+        Vector3 cameraPos = playerCamera.transform.position;
+
+        playerCamera.transform.position = Vector3.Lerp(cameraPos, positionCameraPos, Time.deltaTime);
+    }
+
+    public void Kill(Vector3 moveCameraTo)
+    {
+        currentPlayerState = PlayerState.Dead;
+        playerController.enabled = false;
+
+        positionCameraPos = moveCameraTo;
     }
 }

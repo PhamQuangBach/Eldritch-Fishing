@@ -28,7 +28,7 @@ public class Monster : MonoBehaviour
     private float attackAngle = 60f;
 
     [SerializeField]
-    private float attackDistance = 2f;
+    private float attackDistance = 3f;
 
     [SerializeField]
     private float attackRestartTime = 5f;
@@ -47,6 +47,8 @@ public class Monster : MonoBehaviour
     private bool canAttack = true;
     private PlayerMovement playerMovement;
 
+    private bool monsterIsAlive = true;
+
     private void Start()
     {
         monsterController = GetComponent<CharacterController>();
@@ -57,6 +59,9 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         if (GameManager.IsPaused)
+            return;
+
+        if (!monsterIsAlive)
             return;
 
         switch (currentMonsterState)
@@ -144,6 +149,14 @@ public class Monster : MonoBehaviour
 
         float distance = Vector3.Distance(monsterPos, playerPos);
 
+        if (distance <= attackDistance)
+        {
+            playerMovement.Kill(transform.position);
+            monsterIsAlive = false;
+
+            return;
+        }
+
         if (distance >= safeDinstance)
         {
             currentMonsterState = MonsterState.Move;
@@ -158,8 +171,7 @@ public class Monster : MonoBehaviour
             playerMovement = PlayerMovement.instance;
             return;
         }
-            
-
+        
         attackPoint.LookAt(playerMovement.transform);
 
         float angle = Vector3.Angle(monsterVelocity.normalized, attackPoint.forward);
