@@ -85,9 +85,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private GameObject playerFeet;
 
-    [SerializeField]
-    private float slopeDistance = 5f;
-
     private CharacterController playerController;
     private float gravity;
 
