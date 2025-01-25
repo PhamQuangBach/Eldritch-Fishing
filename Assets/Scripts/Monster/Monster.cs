@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements;
+using System.Collections;
 
 
 public enum MonsterState
@@ -37,6 +37,8 @@ public class Monster : MonoBehaviour
     private PlayerMovement playerMovement;
 
     private MonsterState currentMonsterState = MonsterState.Move;
+
+    private bool canAttack = true;
 
     private void Start()
     {
@@ -115,6 +117,13 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private IEnumerator restartAttack()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(5f);
+        canAttack = true;
+    }
+
     private void AttackMovement()
     {
         Vector3 monsterPos = transform.position;
@@ -128,10 +137,12 @@ public class Monster : MonoBehaviour
 
         float distance = Vector3.Distance(monsterPos, playerPos);
 
-        
-
         Debug.Log(distance);
-        //if (distance >= )
+        if (distance >= 20f)
+        {
+            currentMonsterState = MonsterState.Move;
+            StartCoroutine(restartAttack());
+        }
     }
 
     private void LookAtPlayer()
@@ -147,7 +158,7 @@ public class Monster : MonoBehaviour
 
         float angle = Vector3.Angle(monsterVelocity.normalized, attackPoint.forward);
 
-        if (angle <= attackAngle)
+        if (angle <= attackAngle && canAttack)
         {
             currentMonsterState = MonsterState.Attack;
         }
