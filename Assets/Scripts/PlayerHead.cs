@@ -15,7 +15,7 @@ public class PlayerHead : MonoBehaviour
     [SerializeField]
     private Sprite baseReticle;
 
-    private BaseInteractble currentInteractableObject;
+    public BaseInteractble currentInteractableObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +26,11 @@ public class PlayerHead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && currentInteractableObject != null){
+        
+    }
+
+    public void Interact(){
+        if (currentInteractableObject != null){
             currentInteractableObject.OnInteract();
         }
     }

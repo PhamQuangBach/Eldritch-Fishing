@@ -7,6 +7,10 @@ public class PlayerHands : MonoBehaviour
     [Header("Weapon sway")]
     [SerializeField]
     private PlayerMovement playerMovement;
+    
+    [Header("Player head")]
+    [SerializeField]
+    private PlayerHead playerHead;
 
     [SerializeField]
     private float rotationSpeed = 10f;
@@ -17,6 +21,7 @@ public class PlayerHands : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     private List<BaseWeapon> weapons = new();
+
 
     private int currentWeaponSlot = 0;
     private BaseWeapon currentWeapon;
@@ -46,8 +51,10 @@ public class PlayerHands : MonoBehaviour
     /// </summary>
     private void GetAttacks()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)){
             currentWeapon.OnPrimaryAttack();
+            playerHead.Interact();
+        }
 
         if (Input.GetMouseButtonDown(1))
             currentWeapon.OnSecondaryAttack();
