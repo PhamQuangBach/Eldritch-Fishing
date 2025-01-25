@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09117295073a433479191cfa79c16412, type: 3}
+  m_Name: PierFootSteps
+  m_EditorClassIdentifier: 
+  FootStepClips:
+  - {fileID: 8300000, guid: 2784959336b543c479a27ccd7d33aa37, type: 3}
+  - {fileID: 8300000, guid: be59572e3e63f214f9eb578d61bb20b9, type: 3}
+  - {fileID: 8300000, guid: 72236c4b89ea0284394a8819b8f96dfd, type: 3}
+  - {fileID: 8300000, guid: 9163a4b8d860c6f42a73ff310a319ffd, type: 3}

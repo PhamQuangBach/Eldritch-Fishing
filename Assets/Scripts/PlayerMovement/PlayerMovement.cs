@@ -80,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float airRateSpeed = 0.5f;
 
+    [SerializeField]
+    private PlayerFootSteps playerFootSteps;
+
     [Header("Head Rotation")]
     [SerializeField]
     private GameObject playerHead;
@@ -208,6 +211,16 @@ public class PlayerMovement : MonoBehaviour
         Vector3 cameraPos = playerCamera.transform.position;
 
         playerCamera.transform.position = Vector3.Lerp(cameraPos, positionCameraPos, Time.deltaTime);
+    }
+
+    public void ChangeFootSteps(FootStepsCollection collection)
+    {
+        playerFootSteps.SetFootStepCollection(collection);
+    } 
+
+    public void ResetFootSteps()
+    {
+        playerFootSteps.ResetFootStepCollection();
     }
 
     public void Kill(Vector3 moveCameraTo)

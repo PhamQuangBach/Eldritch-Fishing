@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09117295073a433479191cfa79c16412, type: 3}
+  m_Name: GrassFootSteps
+  m_EditorClassIdentifier: 
+  FootStepClips:
+  - {fileID: 8300000, guid: c79b01e883bba6c40ae6b38fe8d186ec, type: 3}
+  - {fileID: 8300000, guid: e407a837ebf6151449c83c8ca34c997b, type: 3}
+  - {fileID: 8300000, guid: 9077729e4e2223e4dba7f0bf6e939d12, type: 3}
+  - {fileID: 8300000, guid: 6d6ce67d65ee7e249812a02501168975, type: 3}
