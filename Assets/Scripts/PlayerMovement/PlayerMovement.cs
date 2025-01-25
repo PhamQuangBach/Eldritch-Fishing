@@ -53,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public static PlayerMovement instance;
+
     [Header("Movement")]
     
     [SerializeField]
@@ -104,6 +106,8 @@ public class PlayerMovement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        instance = this;
     }
 
     private void Update()
@@ -140,10 +144,6 @@ public class PlayerMovement : MonoBehaviour
         playerController.Move(currentVelocity * playerSpeed * Time.deltaTime);
         realVelocity = playerController.velocity;
         playerController.Move(gravityVelocity * Time.deltaTime);
-
-
-        Debug.Log(realVelocity.magnitude);
-
     }
 
     private void CameraRotation()
