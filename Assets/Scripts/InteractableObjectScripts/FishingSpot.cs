@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class FishingSpot : BaseInteractble
 {
+    private enum FishingState{
+        Idle,
+        Waiting,
+        Biten,
+        Destroyed,
+    }
 
     [SerializeField]
     private ParticleSystem bubbles;
@@ -14,7 +20,7 @@ public class FishingSpot : BaseInteractble
 
     private float timer;
 
-    private int state = 0;
+    private FishingState state = FishingState.Idle;
 
     private FishingRod fishingRod;
 
@@ -41,7 +47,7 @@ public class FishingSpot : BaseInteractble
         }
         fishingRod = weapon as FishingRod;
         // Freeze movement
-        if (state == 0){
+        if (state == FishingState.Idle){
             StartFishing();
         }
     }
@@ -57,13 +63,16 @@ public class FishingSpot : BaseInteractble
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (GameManager.IsPaused)
+            return;
+
         timer -= Time.fixedDeltaTime;
-        if (state != 0){
+        if (state != FishingState.Idle){
             if (timer <= 0){
-                if (state == 1){
+                if (state == FishingState.Waiting){
                     StartFishBite();
                 }
-                else if (state == 2){
+                else if (state == FishingState.Biten){
                     EndFishBite();
                 }
             }
@@ -76,7 +85,7 @@ public class FishingSpot : BaseInteractble
     }
 
     void Update(){
-        if (state == 2){
+        if (state == FishingState.Biten){
             if (Input.GetMouseButtonDown(0)){
                 ReelIn();
             }
@@ -84,7 +93,7 @@ public class FishingSpot : BaseInteractble
     }
 
     void StartFishing(){
-        state = 1;
+        state = FishingState.Waiting;
         fishingRod.CastLine(this);
         waterRing.Play();
         timer = Random.Range(3f, 10f);
@@ -93,7 +102,7 @@ public class FishingSpot : BaseInteractble
     }
 
     void StartFishBite(){
-        state = 2;
+        state = FishingState.Biten;
         timer = Random.Range(2f, 3f);
         fishingRod.FishBite();
         bubbles.Play();
@@ -104,7 +113,7 @@ public class FishingSpot : BaseInteractble
 
     void ReelIn(){
         EndFishBite();
-        state = -1;
+        state = FishingState.Destroyed;
         FishManager.instance.CatchFish();
         Destroy(gameObject);
     }
@@ -117,7 +126,7 @@ public class FishingSpot : BaseInteractble
         bubbles.Stop();
         waterRing.Stop();
         waterRingCrazy.Stop();
-        state = 0;
+        state = FishingState.Idle;
         // Kick player out of fishing
         // return movement
     }
