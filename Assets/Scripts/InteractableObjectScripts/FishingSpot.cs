@@ -19,18 +19,20 @@ public class FishingSpot : BaseInteractble
 
     public override void OnDeHighlight()
     {
-        Debug.Log("DeHighligh Fishing Spot");
+
     }
 
     public override void OnHighlight()
     {
-        Debug.Log("Highligh Fishing Spot");
+        
     }
 
     public override void OnInteract(BaseWeapon weapon)
     {
         if (weapon is not FishingRod)
         {
+            objectName = "You can't fish with this";
+            timer = 1;
             return;
         }
         fishingRod = weapon as FishingRod;
@@ -49,8 +51,8 @@ public class FishingSpot : BaseInteractble
     // Update is called once per frame
     void FixedUpdate()
     {
+        timer -= Time.fixedDeltaTime;
         if (state != 0){
-            timer -= Time.fixedDeltaTime;
             if (timer <= 0){
                 if (state == 1){
                     StartFishBite();
@@ -59,8 +61,11 @@ public class FishingSpot : BaseInteractble
                     EndFishBite();
                 }
             }
-
-            
+        }
+        else{
+            if (timer <= 0){
+                objectName = "Fishing spot";
+            }
         }
     }
 

@@ -49,6 +49,7 @@ public class FishingRod : BaseWeapon
 
     public void ClearLine(){
         line.SetPositions(new Vector3[0]);
+        isCasted = false;
         fishBite = false;
         bobber.gameObject.SetActive(false);
         line.gameObject.SetActive(false);

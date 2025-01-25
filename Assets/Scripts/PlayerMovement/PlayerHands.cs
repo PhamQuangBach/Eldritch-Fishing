@@ -69,48 +69,6 @@ public class PlayerHands : MonoBehaviour
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
-    //void FixedUpdate(){
-    //    BaseInteractble newInteractableObject = CheckInteractable();
-
-    //    if (!ReferenceEquals(newInteractableObject, currentInteractableObject))
-    //    {
-    //        if (currentInteractableObject != null)
-    //        {
-    //            currentInteractableObject.OnDeHighlight();
-    //        }
-
-    //        if (newInteractableObject != null)
-    //        {
-    //            newInteractableObject.OnHighlight();
-    //            playerReticle.sprite = newInteractableObject.reticleSprite;
-    //            reticleDescription.text = newInteractableObject.objectName;
-    //        }
-    //        else
-    //        {
-    //            playerReticle.sprite = baseReticle;
-    //            reticleDescription.text = "";
-    //        }
-    //    }
-    //    currentInteractableObject = newInteractableObject;
-    //    if (currentInteractableObject != null)
-    //    {
-    //        if (currentInteractableObject.reticleSprite != null)
-    //        {
-    //            playerReticle.sprite = currentInteractableObject.reticleSprite;
-    //        }
-    //        else
-    //        {
-    //            playerReticle.sprite = baseReticle;
-    //        }
-    //        reticleDescription.text = currentInteractableObject.objectName;
-    //    }
-    //    else
-    //    {
-    //        playerReticle.sprite = baseReticle;
-    //        reticleDescription.text = "";
-    //    }
-    //}
-
     /// <summary>
     /// Getting mouse buttons input and calling curreunt's weapon attacks
     /// </summary>
@@ -184,7 +142,7 @@ public class PlayerHands : MonoBehaviour
     /// </summary>
     private void Interact()
     {
-        if (!Input.GetKeyDown(KeyCode.E))
+        if (!Input.GetKeyDown(KeyCode.E) && !Input.GetMouseButtonDown(0))
             return;
 
         RaycastHit hit;

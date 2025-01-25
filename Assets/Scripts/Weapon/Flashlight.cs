@@ -14,10 +14,7 @@ public class Flashlight : BaseWeapon
     private float lightTarget;
 
 
-    public override void OnPrimaryAttack()
-    {
-
-    }
+    public override void OnPrimaryAttack() { }
 
     public override void OnEquip() { 
         lightSource.SetLightLevel(activeRadius);
