@@ -32,8 +32,15 @@ public class PlayerHands : MonoBehaviour
     [SerializeField]
     private Sprite baseReticle;
 
-    private BaseInteractble currentInteractableObject;
+    [Header("Interaction")]
+    [SerializeField]
+    private float interactionDistance = 2f;
 
+    [SerializeField]
+    private LayerMask interactableLayer;
+
+
+    private BaseInteractble currentInteractableObject;
 
     private int currentWeaponSlot = 0;
     private BaseWeapon currentWeapon;
@@ -48,48 +55,61 @@ public class PlayerHands : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.IsPaused)
+            return;
+
         HandsRotation();
         FallHandRotation();
         GetAttacks();
         ChangeWeapon();
+        SearchForInteractable();
+        Interact();
 
         currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, rotationSpeed * Time.deltaTime);
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
-    void FixedUpdate(){
-        BaseInteractble newInteractableObject = CheckInteractable();
+    //void FixedUpdate(){
+    //    BaseInteractble newInteractableObject = CheckInteractable();
 
-        if (!ReferenceEquals(newInteractableObject, currentInteractableObject)){
-            if (currentInteractableObject != null){
-               currentInteractableObject.OnDeHighlight(); 
-            }
+    //    if (!ReferenceEquals(newInteractableObject, currentInteractableObject))
+    //    {
+    //        if (currentInteractableObject != null)
+    //        {
+    //            currentInteractableObject.OnDeHighlight();
+    //        }
 
-            if (newInteractableObject != null){
-                newInteractableObject.OnHighlight();
-                playerReticle.sprite = newInteractableObject.reticleSprite;
-                reticleDescription.text = newInteractableObject.objectName;
-            }
-            else{
-                playerReticle.sprite = baseReticle;
-                reticleDescription.text = "";
-            }
-        }
-        currentInteractableObject = newInteractableObject;
-        if (currentInteractableObject != null){
-            if (currentInteractableObject.reticleSprite != null){
-                playerReticle.sprite = currentInteractableObject.reticleSprite;
-            }
-            else{
-                playerReticle.sprite = baseReticle;
-            }
-            reticleDescription.text = currentInteractableObject.objectName;
-        }
-        else{
-            playerReticle.sprite = baseReticle;
-            reticleDescription.text = "";
-        }
-    }
+    //        if (newInteractableObject != null)
+    //        {
+    //            newInteractableObject.OnHighlight();
+    //            playerReticle.sprite = newInteractableObject.reticleSprite;
+    //            reticleDescription.text = newInteractableObject.objectName;
+    //        }
+    //        else
+    //        {
+    //            playerReticle.sprite = baseReticle;
+    //            reticleDescription.text = "";
+    //        }
+    //    }
+    //    currentInteractableObject = newInteractableObject;
+    //    if (currentInteractableObject != null)
+    //    {
+    //        if (currentInteractableObject.reticleSprite != null)
+    //        {
+    //            playerReticle.sprite = currentInteractableObject.reticleSprite;
+    //        }
+    //        else
+    //        {
+    //            playerReticle.sprite = baseReticle;
+    //        }
+    //        reticleDescription.text = currentInteractableObject.objectName;
+    //    }
+    //    else
+    //    {
+    //        playerReticle.sprite = baseReticle;
+    //        reticleDescription.text = "";
+    //    }
+    //}
 
     /// <summary>
     /// Getting mouse buttons input and calling curreunt's weapon attacks
@@ -159,17 +179,57 @@ public class PlayerHands : MonoBehaviour
         currentRotation += rotation * rotationAmplitude;
     }
 
-    
+    /// <summary>
+    /// Interact with interactable objects
+    /// </summary>
+    private void Interact()
+    {
+        if (!Input.GetKeyDown(KeyCode.E))
+            return;
 
-    BaseInteractble CheckInteractable(){
-        Vector3 forwardDirection = transform.forward;
         RaycastHit hit;
-        if  (Physics.Raycast(transform.position + forwardDirection * 0.5f, forwardDirection, out hit, 10)){
-            return hit.collider.gameObject.GetComponent<BaseInteractble>();
-        }
-        else{
-            return null;
-        }
+
+        if (!Physics.Raycast(transform.forward, transform.forward, out hit, interactionDistance, interactableLayer))
+            return;
+
+        if (hit.collider.tag != "Interactable")
+            return;
+
+        BaseInteractble interactable = hit.collider.GetComponent<BaseInteractble>();
+        interactable.OnInteract(currentWeapon);
     }
 
+    /// <summary>
+    /// Search for interactable objects and changing the reticle based on the object
+    /// </summary>
+    private void SearchForInteractable()
+    {
+        RaycastHit hit;
+
+        if (!Physics.Raycast(transform.forward, transform.forward, out hit, interactionDistance, interactableLayer))
+        {
+            playerReticle.sprite = baseReticle;
+
+            return;
+        }
+
+        if (hit.collider.tag != "Interactable")
+        {
+            playerReticle.sprite = baseReticle;
+
+            return;
+        }
+
+        BaseInteractble interactable = hit.collider.GetComponent<BaseInteractble>();
+        interactable.OnInteract(currentWeapon);
+
+        if (playerReticle.sprite == null)
+        {
+            playerReticle.sprite = baseReticle;
+
+            return;
+        }
+        
+        playerReticle.sprite = interactable.reticleSprite;
+    }
 }
