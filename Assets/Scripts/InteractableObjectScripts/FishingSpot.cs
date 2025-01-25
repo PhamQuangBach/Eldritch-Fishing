@@ -60,10 +60,14 @@ public class FishingSpot : BaseInteractble
                 }
             }
 
-            if (state == 2){
-                if (Input.GetMouseButtonDown(0)){
-                    ReelIn();
-                }
+            
+        }
+    }
+
+    void Update(){
+        if (state == 2){
+            if (Input.GetMouseButtonDown(0)){
+                ReelIn();
             }
         }
     }
@@ -87,7 +91,8 @@ public class FishingSpot : BaseInteractble
 
     void ReelIn(){
         EndFishBite();
-        FishManager.instance.FishCaught();
+        FishManager.instance.CatchFish();
+        Destroy(gameObject);
     }
 
     void EndFishBite(){

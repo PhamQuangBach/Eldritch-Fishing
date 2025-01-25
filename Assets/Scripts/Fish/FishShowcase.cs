@@ -16,6 +16,8 @@ public class FishShowCase : MonoBehaviour
 
     private GameObject fishObject;
 
+    private int currentFishIndex;
+
     private float timer = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +29,11 @@ public class FishShowCase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentFishIndex < FishManager.FishCaught){
+            ShowFish(FishManager.GetFishPrefab(currentFishIndex));
+            currentFishIndex += 1;
+        }
+
         if (fishObject!= null){
             fishObject.transform.Rotate(new Vector3(0, Time.deltaTime * 10, 0));
             timer -= Time.deltaTime;
