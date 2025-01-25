@@ -486,6 +486,7 @@ MonoBehaviour:
   playerSpeed: 7
   floorRateSpeed: 10
   airRateSpeed: 1
+  playerFootSteps: {fileID: 0}
   playerHead: {fileID: 7847579816678032460}
   playerCamera: {fileID: 523855610819235350}
   cameraSensitivity: 3
@@ -563,6 +564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2623190039911427641}
+  - component: {fileID: 3325575727547867952}
   m_Layer: 0
   m_Name: Feet
   m_TagString: Untagged
@@ -585,6 +587,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6172795722273100255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3325575727547867952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205920529577344479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26213b445748ed459ffdc477dd9b412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 5478803010875315064}
+  defaultFootSteps: {fileID: 11400000, guid: 82dd6d62df7984d4bb14872e71257295, type: 2}
+  footStepDelay: 0.5
 --- !u!1 &4783576965228518549
 GameObject:
   m_ObjectHideFlags: 0
