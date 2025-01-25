@@ -34,7 +34,7 @@ public class FishingRod : BaseWeapon
     public void FixedUpdate(){
         if (isCasted){
             CreateLine();
-            bobbingCycle += Time.fixedDeltaTime * (fishBite? 10 : 2);
+            bobbingCycle += Time.fixedDeltaTime * (fishBite? 10 : 2) * Mathf.PI / 2;
             bobber.transform.position += new Vector3(0, Mathf.Sin(bobbingCycle) * 0.1f * Time.fixedDeltaTime * (fishBite? 10 : 2), 0);
         }
     }
@@ -48,7 +48,6 @@ public class FishingRod : BaseWeapon
     }
 
     public void ClearLine(){
-        line.SetPositions(new Vector3[0]);
         isCasted = false;
         fishBite = false;
         bobber.gameObject.SetActive(false);

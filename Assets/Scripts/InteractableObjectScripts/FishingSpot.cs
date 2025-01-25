@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class FishingSpot : BaseInteractble
 {
-    [SerializeField]
-    private GameObject fish;
 
     [SerializeField]
     private ParticleSystem bubbles;
+
+    [SerializeField]
+    private ParticleSystem waterRing;
+    
+    [SerializeField]
+    private ParticleSystem waterRingCrazy;
 
     private float timer;
 
@@ -24,7 +28,7 @@ public class FishingSpot : BaseInteractble
 
     public override void OnHighlight()
     {
-        
+
     }
 
     public override void OnInteract(BaseWeapon weapon)
@@ -45,7 +49,9 @@ public class FishingSpot : BaseInteractble
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        bubbles.Stop();
+        waterRing.Stop();
+        waterRingCrazy.Stop();
     }
 
     // Update is called once per frame
@@ -80,7 +86,8 @@ public class FishingSpot : BaseInteractble
     void StartFishing(){
         state = 1;
         fishingRod.CastLine(this);
-        bubbles.gameObject.SetActive(true);
+        bubbles.Play();
+        waterRing.Play();
         timer = Random.Range(3f, 10f);
         reticleSprite = null;
         objectName = "";
@@ -90,21 +97,27 @@ public class FishingSpot : BaseInteractble
         state = 2;
         timer = Random.Range(2f, 3f);
         fishingRod.FishBite();
+        waterRingCrazy.Play();
         reticleSprite = rodIcon;
         objectName = "Reel in";
     }
 
     void ReelIn(){
         EndFishBite();
+        state = -1;
         FishManager.instance.CatchFish();
         Destroy(gameObject);
     }
 
     void EndFishBite(){
-        state = 0;
         fishingRod.ClearLine();
         reticleSprite = rodIcon;
         objectName = "Fishing spot";
+        
+        bubbles.Stop();
+        waterRing.Stop();
+        waterRingCrazy.Stop();
+        state = 0;
         // Kick player out of fishing
         // return movement
     }
