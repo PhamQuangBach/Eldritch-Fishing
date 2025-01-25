@@ -17,6 +17,7 @@ public class FishingRod : BaseWeapon
 
     public int lineSegmentCount;
 
+    private bool fishBite = false;
 
     private bool isCasted;
 
@@ -33,20 +34,22 @@ public class FishingRod : BaseWeapon
     public void FixedUpdate(){
         if (isCasted){
             CreateLine();
-            bobbingCycle += Time.fixedDeltaTime;
-            bobber.transform.position += new Vector3(0, Mathf.Sin(bobbingCycle) * 0.1f * Time.fixedDeltaTime, 0);
+            bobbingCycle += Time.fixedDeltaTime * (fishBite? 10 : 2);
+            bobber.transform.position += new Vector3(0, Mathf.Sin(bobbingCycle) * 0.1f * Time.fixedDeltaTime * (fishBite? 10 : 2), 0);
         }
     }
 
     public void CastLine(FishingSpot fishingSpot){
         isCasted = true;
+        bobbingCycle = 0;
         bobber.gameObject.SetActive(true);
-        bobber.transform.position = fishingSpot.transform.position + new Vector3(0, 0.3f, 0);
+        bobber.transform.position = fishingSpot.transform.position + new Vector3(0, 0.03f, 0);
         line.gameObject.SetActive(true);
     }
 
-    void ClearLine(){
+    public void ClearLine(){
         line.SetPositions(new Vector3[0]);
+        fishBite = false;
         bobber.gameObject.SetActive(false);
         line.gameObject.SetActive(false);
     }
@@ -60,5 +63,9 @@ public class FishingRod : BaseWeapon
             //linePositions[i] -= line.transform.position;
         }
         line.SetPositions(linePositions);
+    }
+
+    public void FishBite(){
+        fishBite = true;
     }
 }

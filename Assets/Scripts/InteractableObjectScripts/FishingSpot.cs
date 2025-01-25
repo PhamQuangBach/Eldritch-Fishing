@@ -2,6 +2,23 @@ using UnityEngine;
 
 public class FishingSpot : BaseInteractble
 {
+    [SerializeField]
+    private GameObject fish;
+
+    [SerializeField]
+    private ParticleSystem bubbles;
+
+    private int faliedCatches = 0;
+
+    private float timer;
+
+    private int state = 0;
+
+    private FishingRod fishingRod;
+
+    [SerializeField]
+    private Sprite rodIcon;
+
     public override void OnDeHighlight()
     {
         Debug.Log("DeHighligh Fishing Spot");
@@ -14,13 +31,18 @@ public class FishingSpot : BaseInteractble
 
     public override void OnInteract(BaseWeapon weapon)
     {
-        Debug.Log("Interact Fishing Spot");
         if (weapon is not FishingRod)
         {
             return;
         }
+        fishingRod = weapon as FishingRod;
         // Freeze movement
-        (weapon as FishingRod).CastLine(this);
+        if (state == 0){
+            StartFishing();
+        }
+        else if(state == 2){
+            ReelIn();
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,8 +52,50 @@ public class FishingSpot : BaseInteractble
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if (state != 0){
+            timer -= Time.fixedDeltaTime;
+            if (timer <= 0){
+                if (state == 1){
+                    StartFishBite();
+                }
+                else if (state == 2){
+                    EndFishBite();
+                }
+            }
+        }
+    }
+
+    void StartFishing(){
+        state = 1;
+        fishingRod.CastLine(this);
+        bubbles.gameObject.SetActive(true);
+        timer = Random.Range(3f, 10f);
+        reticleSprite = null;
+        objectName = "";
+    }
+
+    void StartFishBite(){
+        state = 2;
+        timer = Random.Range(2f, 3f);
+        fishingRod.FishBite();
+        reticleSprite = rodIcon;
+        objectName = "Reel in";
+    }
+
+    void ReelIn(){
+        EndFishBite();
+        //Give Fish to the player
+        Destroy(gameObject);
+    }
+
+    void EndFishBite(){
+        state = 0;
+        fishingRod.ClearLine();
+        reticleSprite = rodIcon;
+        objectName = "Fishing spot";
+        // Kick player out of fishing
+        // return movement
     }
 }
