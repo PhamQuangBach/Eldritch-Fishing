@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public enum GameState
 {
+    Prepare,
     Game,
     Death,
     TimeOut,
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    private GameState gameState = GameState.Game;
+    private GameState gameState = GameState.Prepare;
 
     private bool isPaused = false;
     private float curTime = 0;
