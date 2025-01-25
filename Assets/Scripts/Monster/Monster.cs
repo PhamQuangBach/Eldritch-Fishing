@@ -64,6 +64,7 @@ public class Monster : MonoBehaviour
         if (!monsterIsAlive)
             return;
 
+        /// GIRLS DON'T REMOVE THIS SWITCH, THE AI WON'T WORK WITHOUT IT
         switch (currentMonsterState)
         {
             case MonsterState.Move:
