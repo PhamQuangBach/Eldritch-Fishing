@@ -35,6 +35,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public Vector2 MouseInput
+    {
+        get
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            float mouseY = Input.GetAxis("Mouse Y");
+            return new Vector2(mouseX, mouseY);
+        }
+    }
+
     [Header("Movement")]
     
     [SerializeField]
@@ -130,13 +140,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HeadRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        Vector2 mouseInput = MouseInput;
 
-        xRotation -= mouseY * cameraSensitivity;
+        xRotation -= mouseInput.y * cameraSensitivity;
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);
         
-        transform.Rotate(Vector3.up * mouseX * cameraSensitivity);
+        transform.Rotate(Vector3.up * mouseInput.x * cameraSensitivity);
         playerHead.transform.localEulerAngles = Vector3.right * xRotation;
     }
 

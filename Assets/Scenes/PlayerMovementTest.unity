@@ -912,6 +912,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 434227611463599356, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 434227611463599356, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: rotationAmplitude
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 523855610819235350, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: m_ClearFlags
       value: 2
