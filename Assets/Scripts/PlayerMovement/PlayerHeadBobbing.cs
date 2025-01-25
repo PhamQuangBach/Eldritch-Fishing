@@ -40,6 +40,9 @@ public class PlayerHeadBobbing : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Slerp(actualRotation, targetRotation, bobbingSpeed * .5f * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Bobbing head based on player movement
+    /// </summary>
     private void Bobbing()
     {
         if (!(playerMovement.IsMoving && playerMovement.IsGrounded))
@@ -60,6 +63,9 @@ public class PlayerHeadBobbing : MonoBehaviour
         curTime += Time.deltaTime;
     }
 
+    /// <summary>
+    /// Rotate head based on horizontal input direction
+    /// </summary>
     private void HeadRotation()
     {
         if (!(playerMovement.IsMoving && playerMovement.IsGrounded))

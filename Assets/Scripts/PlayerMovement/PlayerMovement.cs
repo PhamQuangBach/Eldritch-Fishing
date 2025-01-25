@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Vector3 Velocity
+    {
+        get
+        {
+            return realVelocity;
+        }
+    }
+
     public bool IsMoving
     {
         get
@@ -15,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         get
         {
-            Vector3 origin = transform.position - Vector3.down * groundCheckDistance * 0.5f;
+            Vector3 origin = playerFeet.transform.position;
             Vector3 dir = Vector3.down * groundCheckDistance;
 
             Debug.DrawRay(origin, dir, Color.red);
@@ -85,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentRateSpeed;
     private Vector3 currentVelocity = Vector3.zero;
 
+    private Vector3 realVelocity;
+
     private void Start()
     {
         playerController = GetComponent<CharacterController>();
@@ -99,10 +109,8 @@ public class PlayerMovement : MonoBehaviour
         if (Cursor.visible)
             return;
 
-        Debug.DrawRay(transform.position, currentVelocity);
-
         Movement();
-        HeadRotation();
+        CameraRotation();
         PlayerSlope();
     }
 
@@ -126,6 +134,8 @@ public class PlayerMovement : MonoBehaviour
 
             playerController.SimpleMove(velocity);
 
+            realVelocity = playerController.velocity;
+
             currentRateSpeed = airRateSpeed;
         } 
         else
@@ -138,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
         playerController.Move(currentVelocity * playerSpeed * Time.deltaTime);
     }
 
-    private void HeadRotation()
+    private void CameraRotation()
     {
         Vector2 mouseInput = MouseInput;
 
@@ -158,13 +168,11 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 normal = hit.normal;
 
-
         if (normal.y < 0.9f)
         {
-            Vector3 slopeDirection = Vector3.Cross(Vector3.up, normal);
-            Vector3 slopeVelocity = slopeDirection * playerSpeed * 0.5f * Time.deltaTime;
+            Vector3 slopeDirection = Vector3.ProjectOnPlane(Vector3.down, normal).normalized;
+            Vector3 slopeVelocity = slopeDirection * playerSpeed * Time.deltaTime;
             Vector3 velocity = playerController.velocity;
-
             velocity += slopeVelocity;
 
             playerController.SimpleMove(velocity);
