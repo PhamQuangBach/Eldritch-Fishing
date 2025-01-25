@@ -13,7 +13,11 @@ public class FishingRod : BaseWeapon
     [SerializeField]
     private GameObject bobber;
 
+    [SerializeField]
+    private AudioSource[] audioNibbles;
+
     private float bobbingCycle = 0;
+    private int bobbingNibble = 0;
 
     public int lineSegmentCount;
 
@@ -36,12 +40,17 @@ public class FishingRod : BaseWeapon
             CreateLine();
             bobbingCycle += Time.fixedDeltaTime * (fishBite? 10 : 2) * Mathf.PI / 2;
             bobber.transform.position += new Vector3(0, Mathf.Sin(bobbingCycle) * 0.1f * Time.fixedDeltaTime * (fishBite? 10 : 2), 0);
+            if(bobbingNibble < Mathf.Round(bobbingCycle / Mathf.PI / 2)){
+                audioNibbles[Random.Range(0, audioNibbles.Length)].Play();
+                bobbingNibble += 1;
+            }
         }
     }
 
     public void CastLine(FishingSpot fishingSpot){
         isCasted = true;
         bobbingCycle = 0;
+        bobbingNibble = 0;
         bobber.gameObject.SetActive(true);
         bobber.transform.position = fishingSpot.transform.position + new Vector3(0, 0.03f, 0);
         line.gameObject.SetActive(true);

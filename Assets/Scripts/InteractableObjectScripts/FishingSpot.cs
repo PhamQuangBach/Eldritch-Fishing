@@ -18,6 +18,15 @@ public class FishingSpot : BaseInteractble
     [SerializeField]
     private ParticleSystem waterRingCrazy;
 
+    [SerializeField]
+    private AudioSource audioLineBreak;
+
+    [SerializeField]
+    private AudioSource audioCatch;
+
+    [SerializeField]
+    private AudioSource audioLure;
+
     private float timer;
 
     private FishingState state = FishingState.Idle;
@@ -81,6 +90,9 @@ public class FishingSpot : BaseInteractble
                 else if (state == FishingState.Biten){
                     EndFishBite();
                 }
+                else if (state == FishingState.Destroyed){
+                    Destroy(gameObject);
+                }
             }
             
             if ((playerCamera.position - transform.position).sqrMagnitude > breakDistance * breakDistance){
@@ -106,6 +118,7 @@ public class FishingSpot : BaseInteractble
         state = FishingState.Waiting;
         fishingRod.CastLine(this);
         waterRing.Play();
+        audioLure.Play();
         timer = Random.Range(3f, 10f);
         reticleSprite = null;
         objectName = "";
@@ -122,10 +135,19 @@ public class FishingSpot : BaseInteractble
     }
 
     void ReelIn(){
-        EndFishBite();
+        fishingRod.ClearLine();
+        reticleSprite = rodIcon;
+        objectName = "Fishing spot";
+        
+        bubbles.Stop();
+        waterRing.Stop();
+        waterRingCrazy.Stop();
+        
+        audioCatch.Play();
+
         state = FishingState.Destroyed;
+        timer = 1;
         FishManager.instance.CatchFish();
-        Destroy(gameObject);
     }
 
     void EndFishBite(){
@@ -136,8 +158,8 @@ public class FishingSpot : BaseInteractble
         bubbles.Stop();
         waterRing.Stop();
         waterRingCrazy.Stop();
+        
+        audioLineBreak.Play();
         state = FishingState.Idle;
-        // Kick player out of fishing
-        // return movement
     }
 }
