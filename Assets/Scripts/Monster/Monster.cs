@@ -144,8 +144,7 @@ public class Monster : MonoBehaviour
 
         float distance = Vector3.Distance(monsterPos, playerPos);
 
-        Debug.Log(distance);
-        if (distance >= 20f)
+        if (distance >= safeDinstance)
         {
             currentMonsterState = MonsterState.Move;
             StartCoroutine(restartAttack());
