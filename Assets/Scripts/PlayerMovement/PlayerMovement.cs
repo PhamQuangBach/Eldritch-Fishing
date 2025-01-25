@@ -108,6 +108,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private ScreenFade screenFade;
 
+    [SerializeField]
+    private PlayerDeathScreen deathScreen;
+
     private PlayerState currentPlayerState = PlayerState.None;
 
     private CharacterController playerController;
@@ -132,6 +135,8 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
 
         instance = this;
+
+        deathScreen.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -235,6 +240,8 @@ public class PlayerMovement : MonoBehaviour
 
         positionCameraPos = moveCameraTo;
 
+        deathScreen.gameObject.SetActive(true);
+        deathScreen.StartGameOver();
         screenFade.FadeIn();
     }
 }

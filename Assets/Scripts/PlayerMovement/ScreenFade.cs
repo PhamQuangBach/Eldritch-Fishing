@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,13 @@ public class ScreenFade : MonoBehaviour
     private void Start()
     {
         fadeCanvas = GetComponent<CanvasGroup>();
+
+        StartCoroutine(OnStartFade());
+    }
+
+    private IEnumerator OnStartFade()
+    {
+        yield return new WaitForSeconds(2f);
 
         FadeOut();
     }
