@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-
 public class Flashlight : BaseWeapon
 {
     [SerializeField]

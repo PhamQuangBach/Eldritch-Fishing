@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &360972340 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7197974321309527722, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+  m_PrefabInstance: {fileID: 9195713719264084776}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abd01976af87fb4481de29683bf4105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &506371172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 483041210400667934, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
@@ -946,12 +957,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 434227611463599356, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: weapons.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 434227611463599356, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: 'weapons.Array.data[0]'
       value: 
       objectReference: {fileID: 747283529}
+    - target: {fileID: 434227611463599356, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: 'weapons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 360972340}
     - target: {fileID: 523855610819235350, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: m_ClearFlags
       value: 2

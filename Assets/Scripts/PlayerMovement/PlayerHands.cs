@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHands : MonoBehaviour
 {
+    [Header("Weapon sway")]
     [SerializeField]
     private PlayerMovement playerMovement;
 
@@ -17,26 +18,25 @@ public class PlayerHands : MonoBehaviour
     [SerializeField]
     private List<BaseWeapon> weapons = new();
 
+    private int currentWeaponSlot = 0;
     private BaseWeapon currentWeapon;
-    
 
     private Vector3 currentRotation = Vector3.zero;
 
     private void Start()
     {
-        currentWeapon = weapons[0];
+        currentWeapon = weapons[currentWeaponSlot];
         currentWeapon.OnEquipInternal();
     }
-
 
     private void Update()
     {
         HandsRotation();
         FallHandRotation();
         GetAttacks();
+        ChangeWeapon();
 
         currentRotation = Vector3.Lerp(currentRotation, Vector3.zero, rotationSpeed * Time.deltaTime);
-
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
@@ -52,6 +52,29 @@ public class PlayerHands : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
             currentWeapon.OnSecondaryAttack();
     }
+
+    /// <summary>
+    /// Changing weapon when player presses Tab button
+    /// </summary>
+    private void ChangeWeapon()
+    {
+        if (!Input.GetKeyDown(KeyCode.Tab))
+            return;
+
+        currentWeaponSlot++;
+
+        if (currentWeaponSlot >= weapons.Count)
+            currentWeaponSlot = 0;
+
+        BaseWeapon newWeapon = weapons[currentWeaponSlot];
+
+        if (currentWeapon == newWeapon)
+            return;
+
+        currentWeapon.OnUnequipInternal();
+        currentWeapon = newWeapon;
+        currentWeapon.OnEquipInternal();
+    } 
 
     /// <summary>
     /// Ratates hands based on fall velocity
