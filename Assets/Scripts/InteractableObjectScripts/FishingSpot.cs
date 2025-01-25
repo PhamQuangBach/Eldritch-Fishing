@@ -8,8 +8,6 @@ public class FishingSpot : BaseInteractble
     [SerializeField]
     private ParticleSystem bubbles;
 
-    private int faliedCatches = 0;
-
     private float timer;
 
     private int state = 0;

@@ -9,9 +9,9 @@ public class PlayerHands : MonoBehaviour
     [SerializeField]
     private PlayerMovement playerMovement;
     
-    [Header("Player head")]
+    [Header("Player camera")]
     [SerializeField]
-    private PlayerHead playerHead;
+    private GameObject playerCamera;
 
     [SerializeField]
     private float rotationSpeed = 10f;
@@ -189,7 +189,7 @@ public class PlayerHands : MonoBehaviour
 
         RaycastHit hit;
 
-        if (!Physics.Raycast(transform.forward, transform.forward, out hit, interactionDistance, interactableLayer))
+        if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionDistance, interactableLayer))
             return;
 
         if (hit.collider.tag != "Interactable")
@@ -206,30 +206,33 @@ public class PlayerHands : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (!Physics.Raycast(transform.forward, transform.forward, out hit, interactionDistance, interactableLayer))
+        if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactionDistance, interactableLayer))
         {
             playerReticle.sprite = baseReticle;
+            reticleDescription.text = "";
 
             return;
         }
-
+        
         if (hit.collider.tag != "Interactable")
         {
             playerReticle.sprite = baseReticle;
+            reticleDescription.text = "";
 
             return;
         }
 
         BaseInteractble interactable = hit.collider.GetComponent<BaseInteractble>();
-        interactable.OnInteract(currentWeapon);
 
         if (playerReticle.sprite == null)
         {
             playerReticle.sprite = baseReticle;
+            reticleDescription.text = "";
 
             return;
         }
         
         playerReticle.sprite = interactable.reticleSprite;
+        reticleDescription.text = interactable.objectName;
     }
 }

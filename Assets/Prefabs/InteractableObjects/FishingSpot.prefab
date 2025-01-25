@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2693517914507282012}
   - component: {fileID: 8463152841840652485}
   - component: {fileID: 3356175490994707771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FishingSpot
-  m_TagString: Untagged
+  m_TagString: interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

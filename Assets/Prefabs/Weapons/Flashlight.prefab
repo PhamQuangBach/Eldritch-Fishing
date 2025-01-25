@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponName: Flashlight
   lightSource: {fileID: 2599627725499325535}
+  inactiveRadius: 4
+  activeRadius: 8
 --- !u!1 &2599627725499325535
 GameObject:
   m_ObjectHideFlags: 0
