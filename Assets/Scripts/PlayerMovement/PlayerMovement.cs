@@ -68,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public ScreenFade ScreenFade => screenFade;
+
     public static PlayerMovement instance;
 
     [Header("Movement")]
@@ -82,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private PlayerFootSteps playerFootSteps;
+
+    [SerializeField]
+    private GameObject playerFeet;
 
     [Header("Head Rotation")]
     [SerializeField]
@@ -99,9 +104,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float groundCheckDistance = 0.4f;
 
-    [Header("Slope")]
+    [Header("UI")]
     [SerializeField]
-    private GameObject playerFeet;
+    private ScreenFade screenFade;
 
     private PlayerState currentPlayerState = PlayerState.None;
 
@@ -229,5 +234,7 @@ public class PlayerMovement : MonoBehaviour
         playerController.enabled = false;
 
         positionCameraPos = moveCameraTo;
+
+        screenFade.FadeIn();
     }
 }
