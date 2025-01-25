@@ -13,9 +13,6 @@ public class PlayerStartingPrologue : MonoBehaviour
     [SerializeField]
     private float timeToReadPrologue = 15f;
 
-    [SerializeField]
-    private Canvas prologueCanvas;
-
     private void Start()
     {
         StartCoroutine(PrologueStart());
@@ -23,12 +20,17 @@ public class PlayerStartingPrologue : MonoBehaviour
 
     private IEnumerator PrologueStart()
     {
-        yield return new WaitForSeconds(timeToReadPrologue);
-        
+        yield return new WaitForSecondsRealtime(timeToReadPrologue);
         playerMovement.ScreenFade.FadeOut();
 
         yield return new WaitForSeconds(5f);
 
-        gameObject.SetActive(false);
+        GameManager manager = GameManager.instance;
+        if (manager != null)
+        {
+            manager.StartGame();
+
+            gameObject.SetActive(false);
+        }
     }
 }

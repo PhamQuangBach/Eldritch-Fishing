@@ -305,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1464211584366747347
 RectTransform:
   m_ObjectHideFlags: 0
@@ -529,8 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 5478803010875315064}
   prologueCollection: {fileID: 11400000, guid: d0be9639db52e1c4ba88ffa485338365, type: 2}
-  timeToReadPrologue: 15
-  prologueCanvas: {fileID: 0}
+  timeToReadPrologue: 5
 --- !u!1 &3219312292034193820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f93b34ec82d21b458c252cf15892c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 1.5
+  fadeSpeed: 3
 --- !u!1 &7841919878643393380
 GameObject:
   m_ObjectHideFlags: 0

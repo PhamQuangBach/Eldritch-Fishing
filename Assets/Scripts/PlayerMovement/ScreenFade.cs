@@ -11,21 +11,12 @@ public class ScreenFade : MonoBehaviour
 
     private CanvasGroup fadeCanvas;
 
-    private float alphaTo = 0f;
+    private float alphaTo = 1f;
 
     
     private void Start()
     {
         fadeCanvas = GetComponent<CanvasGroup>();
-
-        StartCoroutine(OnStartFade());
-    }
-
-    private IEnumerator OnStartFade()
-    {
-        yield return new WaitForSeconds(2f);
-
-        FadeOut();
     }
 
     private void Update()
@@ -37,7 +28,6 @@ public class ScreenFade : MonoBehaviour
         if (alpha < 0.01f)
         {
             alpha = 0f;
-            gameObject.SetActive(false);
         }
         else if (alpha > 0.95f)
         {
@@ -47,7 +37,6 @@ public class ScreenFade : MonoBehaviour
 
     public void FadeIn()
     {
-        gameObject.SetActive(true);
         alphaTo = 1f;
     }
 
