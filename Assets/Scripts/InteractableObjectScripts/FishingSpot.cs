@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class FishingSpot : MonoBehaviour, IInteractable
+public class FishingSpot : BaseInteractble
 {
-    public void OnDeHighlight()
+    public override void OnDeHighlight()
     {
         Debug.Log("DeHighligh Fishing Spot");
     }
 
-    public void OnHighlight()
+    public override void OnHighlight()
     {
         Debug.Log("Highligh Fishing Spot");
     }
 
-    public void OnInteract()
+    public override void OnInteract()
     {
         Debug.Log("Interact Fishing Spot");
     }
