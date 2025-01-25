@@ -9,7 +9,7 @@ public interface IInteractable
     void OnDeHighlight();
 
     // When the interact button is pressed
-    void OnInteract();
+    void OnInteract(BaseWeapon weapon);
 
     
 }

@@ -53,7 +53,7 @@ public class PlayerHands : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)){
             currentWeapon.OnPrimaryAttack();
-            playerHead.Interact();
+            playerHead.Interact(currentWeapon);
         }
 
         if (Input.GetMouseButtonDown(1))

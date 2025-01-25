@@ -12,9 +12,15 @@ public class FishingSpot : BaseInteractble
         Debug.Log("Highligh Fishing Spot");
     }
 
-    public override void OnInteract()
+    public override void OnInteract(BaseWeapon weapon)
     {
         Debug.Log("Interact Fishing Spot");
+        if (weapon is not FishingRod)
+        {
+            return;
+        }
+        // Freeze movement
+        (weapon as FishingRod).CastLine(this);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -29,9 +29,9 @@ public class PlayerHead : MonoBehaviour
         
     }
 
-    public void Interact(){
+    public void Interact(BaseWeapon weapon){
         if (currentInteractableObject != null){
-            currentInteractableObject.OnInteract();
+            currentInteractableObject.OnInteract(weapon);
         }
     }
 

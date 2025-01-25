@@ -9,5 +9,5 @@ public abstract class BaseInteractble : MonoBehaviour, IInteractable
 
     public abstract void OnHighlight();
 
-    public abstract void OnInteract();
+    public abstract void OnInteract(BaseWeapon weapon);
 }
