@@ -27,6 +27,11 @@ public class FishingSpot : BaseInteractble
     [SerializeField]
     private Sprite rodIcon;
 
+    [SerializeField]
+    private float breakDistance;
+
+    private Transform playerCamera;
+
     public override void OnDeHighlight()
     {
 
@@ -55,6 +60,7 @@ public class FishingSpot : BaseInteractble
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerCamera = Camera.main.transform;
         bubbles.Stop();
         waterRing.Stop();
         waterRingCrazy.Stop();
@@ -75,6 +81,10 @@ public class FishingSpot : BaseInteractble
                 else if (state == FishingState.Biten){
                     EndFishBite();
                 }
+            }
+            
+            if ((playerCamera.position - transform.position).sqrMagnitude > breakDistance * breakDistance){
+                EndFishBite();
             }
         }
         else{
