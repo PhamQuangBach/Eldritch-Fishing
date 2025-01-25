@@ -486,7 +486,7 @@ MonoBehaviour:
   playerSpeed: 7
   floorRateSpeed: 10
   airRateSpeed: 1
-  playerFootSteps: {fileID: 0}
+  playerFootSteps: {fileID: 3325575727547867952}
   playerHead: {fileID: 7847579816678032460}
   playerCamera: {fileID: 523855610819235350}
   cameraSensitivity: 3
