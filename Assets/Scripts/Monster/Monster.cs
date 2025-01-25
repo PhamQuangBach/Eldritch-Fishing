@@ -26,19 +26,14 @@ public class Monster : MonoBehaviour
 
     private CharacterController monsterController;
 
-    private MonsterState monsterState = MonsterState.Move; 
-    private int currentMoveToPointIndex = 0;
-    private Transform currentMoveToPoint;
-
-    private Vector3 monsterVelocity;
-
-    private bool reverse = false;
-
-    private PlayerMovement playerMovement;
-
     private MonsterState currentMonsterState = MonsterState.Move;
 
+    private int currentMoveToPointIndex = 0;
+    private Transform currentMoveToPoint;
+    private Vector3 monsterVelocity;
+    private bool reverse = false;
     private bool canAttack = true;
+    private PlayerMovement playerMovement;
 
     private void Start()
     {
