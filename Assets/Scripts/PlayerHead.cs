@@ -3,23 +3,19 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class PlayerHead : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject flashLight;
-
-    [SerializeField]
-    private GameObject mainCamera;
 
     [SerializeField]
     private Image playerReticle;
 
     [SerializeField]
-    private Sprite[] reticleImages;
+    private Text reticleDescription;
 
-    private IInteractable currentInteractableObject;
+    [SerializeField]
+    private Sprite baseReticle;
 
-    private int toolState = 0;
+    private BaseInteractble currentInteractableObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,41 +26,37 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Switch Tool")){
-            toolState = (toolState + 1) % 2;
-
-            if (toolState == 0){
-                flashLight.SetActive(false);
-            }
-            if (toolState == 1){
-                flashLight.SetActive(true);
-            }
-        }
-
         if (Input.GetButtonDown("Fire1") && currentInteractableObject != null){
             currentInteractableObject.OnInteract();
         }
     }
 
     void FixedUpdate(){
-        IInteractable newInteractableObject = CheckInteractable();
+        BaseInteractble newInteractableObject = CheckInteractable();
 
         if (!ReferenceEquals(newInteractableObject, currentInteractableObject)){
             if (currentInteractableObject != null){
                currentInteractableObject.OnDeHighlight(); 
             }
+
             if (newInteractableObject != null){
                 newInteractableObject.OnHighlight();
+                playerReticle.sprite = newInteractableObject.reticleSprite;
+                reticleDescription.text = newInteractableObject.objectName;
+            }
+            else{
+                playerReticle.sprite = baseReticle;
+                reticleDescription.text = "";
             }
         }
         currentInteractableObject = newInteractableObject;
     }
 
-    IInteractable CheckInteractable(){
-        Vector3 forwardDirection = mainCamera.transform.forward;
+    BaseInteractble CheckInteractable(){
+        Vector3 forwardDirection = transform.forward;
         RaycastHit hit;
-        if  (Physics.Raycast(mainCamera.transform.position, forwardDirection, out hit, 10)){
-            return hit.collider.gameObject.GetComponent<IInteractable>();
+        if  (Physics.Raycast(transform.position, forwardDirection, out hit, 10)){
+            return hit.collider.gameObject.GetComponent<BaseInteractble>();
         }
         else{
             return null;
