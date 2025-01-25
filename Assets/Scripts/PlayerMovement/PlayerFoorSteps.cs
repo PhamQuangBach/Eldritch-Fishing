@@ -66,7 +66,8 @@ public class PlayerFootSteps : MonoBehaviour
         
         currentFootStepIndex = 0;
         currentFootStepsCollection = collection;
-        
+        audioSource.clip = collection.FootStepClips[currentFootStepIndex];
+
         audioSource.Play();
 
         footStepTimer = 0f;
@@ -78,6 +79,7 @@ public class PlayerFootSteps : MonoBehaviour
 
         currentFootStepIndex = 0;
         currentFootStepsCollection = defaultFootSteps;
+        audioSource.clip = defaultFootSteps.FootStepClips[currentFootStepIndex];
 
         audioSource.Play();
 
