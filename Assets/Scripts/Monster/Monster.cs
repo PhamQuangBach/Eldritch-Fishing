@@ -19,10 +19,22 @@ public class Monster : MonoBehaviour
     private float monsterSpeed = 5f;
 
     [SerializeField]
+    private float pointDistance = 0.5f;
+
+    [SerializeField]
     private Transform attackPoint;
 
     [SerializeField]
     private float attackAngle = 60f;
+
+    [SerializeField]
+    private float attackDistance = 2f;
+
+    [SerializeField]
+    private float attackRestartTime = 5f;
+
+    [SerializeField]
+    private float safeDinstance = 18f;
 
     private CharacterController monsterController;
 
@@ -62,7 +74,7 @@ public class Monster : MonoBehaviour
         LookAtPlayer();
 
         Debug.DrawRay(transform.position, monsterVelocity, Color.red);
-        Debug.DrawRay(attackPoint.position, attackPoint.forward * 10f, Color.green);
+        Debug.DrawRay(attackPoint.position, attackPoint.forward * safeDinstance, Color.green);
     }
 
     private Vector3 GetDirectcion()
@@ -106,7 +118,7 @@ public class Monster : MonoBehaviour
 
         float dinstance = DistanceToMoveToPoint();
 
-        if (dinstance < 0.5f)
+        if (dinstance < pointDistance)
         {
             ChangePoint();
         }
@@ -115,7 +127,7 @@ public class Monster : MonoBehaviour
     private IEnumerator restartAttack()
     {
         canAttack = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(attackRestartTime);
         canAttack = true;
     }
 
