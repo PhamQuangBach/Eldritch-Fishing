@@ -5,6 +5,7 @@ public enum GameState
 {
     Prepare,
     Game,
+    Paused,
     Death,
     TimeOut,
     Win
@@ -41,12 +42,26 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        isPaused = true;
+        if (gameState != GameState.Game)
+            return;
+
+        gameState = GameState.Paused;
     }
 
     public void ResumeGame()
     {
-        isPaused = false;
+        if (gameState != GameState.Paused)
+            return;
+
+        gameState = GameState.Game;
+    }
+
+    public void StartGame()
+    {
+        if (gameState != GameState.Prepare)
+            return;
+
+        gameState = GameState.Game;
     }
 
     public void OnDeath()

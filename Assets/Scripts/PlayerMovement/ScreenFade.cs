@@ -37,6 +37,7 @@ public class ScreenFade : MonoBehaviour
         if (alpha < 0.01f)
         {
             alpha = 0f;
+            gameObject.SetActive(false);
         }
         else if (alpha > 0.95f)
         {
@@ -46,6 +47,7 @@ public class ScreenFade : MonoBehaviour
 
     public void FadeIn()
     {
+        gameObject.SetActive(true);
         alphaTo = 1f;
     }
 
