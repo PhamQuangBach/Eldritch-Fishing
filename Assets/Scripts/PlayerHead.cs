@@ -54,6 +54,19 @@ public class PlayerHead : MonoBehaviour
             }
         }
         currentInteractableObject = newInteractableObject;
+        if (currentInteractableObject != null){
+            if (currentInteractableObject.reticleSprite != null){
+                playerReticle.sprite = currentInteractableObject.reticleSprite;
+            }
+            else{
+                playerReticle.sprite = baseReticle;
+            }
+            reticleDescription.text = currentInteractableObject.objectName;
+        }
+        else{
+            playerReticle.sprite = baseReticle;
+            reticleDescription.text = "";
+        }
     }
 
     BaseInteractble CheckInteractable(){
