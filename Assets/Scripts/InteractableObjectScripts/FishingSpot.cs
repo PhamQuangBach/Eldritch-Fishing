@@ -112,6 +112,11 @@ public class FishingSpot : BaseInteractble
                 ReelIn();
             }
         }
+        if (state == FishingState.Waiting){
+            if (Input.GetMouseButtonDown(0)){
+                EndFishBite();
+            }
+        }
     }
 
     void StartFishing(){
