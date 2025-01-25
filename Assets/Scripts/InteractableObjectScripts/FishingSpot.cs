@@ -86,7 +86,6 @@ public class FishingSpot : BaseInteractble
     void StartFishing(){
         state = 1;
         fishingRod.CastLine(this);
-        bubbles.Play();
         waterRing.Play();
         timer = Random.Range(3f, 10f);
         reticleSprite = null;
@@ -97,6 +96,7 @@ public class FishingSpot : BaseInteractble
         state = 2;
         timer = Random.Range(2f, 3f);
         fishingRod.FishBite();
+        bubbles.Play();
         waterRingCrazy.Play();
         reticleSprite = rodIcon;
         objectName = "Reel in";
