@@ -40,9 +40,6 @@ public class FishingSpot : BaseInteractble
         if (state == 0){
             StartFishing();
         }
-        else if(state == 2){
-            ReelIn();
-        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -62,6 +59,12 @@ public class FishingSpot : BaseInteractble
                 }
                 else if (state == 2){
                     EndFishBite();
+                }
+            }
+
+            if (state == 2){
+                if (Input.GetMouseButtonDown(0)){
+                    ReelIn();
                 }
             }
         }
@@ -86,8 +89,7 @@ public class FishingSpot : BaseInteractble
 
     void ReelIn(){
         EndFishBite();
-        //Give Fish to the player
-        Destroy(gameObject);
+        FishManager.instance.FishCaught();
     }
 
     void EndFishBite(){

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerHands : MonoBehaviour
@@ -21,6 +22,17 @@ public class PlayerHands : MonoBehaviour
     [Header("Inventory")]
     [SerializeField]
     private List<BaseWeapon> weapons = new();
+
+    [SerializeField]
+    private Image playerReticle;
+
+    [SerializeField]
+    private Text reticleDescription;
+
+    [SerializeField]
+    private Sprite baseReticle;
+
+    private BaseInteractble currentInteractableObject;
 
 
     private int currentWeaponSlot = 0;
@@ -45,6 +57,39 @@ public class PlayerHands : MonoBehaviour
         transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
+    void FixedUpdate(){
+        BaseInteractble newInteractableObject = CheckInteractable();
+
+        if (!ReferenceEquals(newInteractableObject, currentInteractableObject)){
+            if (currentInteractableObject != null){
+               currentInteractableObject.OnDeHighlight(); 
+            }
+
+            if (newInteractableObject != null){
+                newInteractableObject.OnHighlight();
+                playerReticle.sprite = newInteractableObject.reticleSprite;
+                reticleDescription.text = newInteractableObject.objectName;
+            }
+            else{
+                playerReticle.sprite = baseReticle;
+                reticleDescription.text = "";
+            }
+        }
+        currentInteractableObject = newInteractableObject;
+        if (currentInteractableObject != null){
+            if (currentInteractableObject.reticleSprite != null){
+                playerReticle.sprite = currentInteractableObject.reticleSprite;
+            }
+            else{
+                playerReticle.sprite = baseReticle;
+            }
+            reticleDescription.text = currentInteractableObject.objectName;
+        }
+        else{
+            playerReticle.sprite = baseReticle;
+            reticleDescription.text = "";
+        }
+    }
 
     /// <summary>
     /// Getting mouse buttons input and calling curreunt's weapon attacks
@@ -53,7 +98,6 @@ public class PlayerHands : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)){
             currentWeapon.OnPrimaryAttack();
-            playerHead.Interact(currentWeapon);
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -114,4 +158,18 @@ public class PlayerHands : MonoBehaviour
 
         currentRotation += rotation * rotationAmplitude;
     }
+
+    
+
+    BaseInteractble CheckInteractable(){
+        Vector3 forwardDirection = transform.forward;
+        RaycastHit hit;
+        if  (Physics.Raycast(transform.position + forwardDirection * 0.5f, forwardDirection, out hit, 10)){
+            return hit.collider.gameObject.GetComponent<BaseInteractble>();
+        }
+        else{
+            return null;
+        }
+    }
+
 }
