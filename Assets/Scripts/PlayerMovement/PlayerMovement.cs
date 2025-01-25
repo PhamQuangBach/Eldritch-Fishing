@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     {
         get
         {
-            return playerController.velocity.magnitude > playerSpeed / 2;
+            return realVelocity.magnitude > playerSpeed / 2;
         }
     }
 
@@ -89,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController playerController;
     private float gravity;
 
+    private Vector3 gravityVelocity = new Vector3();
+
     private float xRotation = 0f;
     private float currentRateSpeed;
     private Vector3 currentVelocity = Vector3.zero;
@@ -106,12 +108,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Cursor.visible)
-            return;
-
         Movement();
         CameraRotation();
-        PlayerSlope();
     }
 
     private Vector3 BuildWishVelocity()
@@ -126,26 +124,26 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 wishVelocity = BuildWishVelocity();
 
-        Vector3 velocity = playerController.velocity;
-
         if (!IsGrounded)
         {
-            velocity.y -= gravity * Time.deltaTime;
-
-            playerController.SimpleMove(velocity);
-
-            realVelocity = playerController.velocity;
-
+            gravityVelocity.y += gravity * Time.deltaTime;
             currentRateSpeed = airRateSpeed;
         } 
         else
         {
             currentRateSpeed = floorRateSpeed;
+            gravityVelocity = Vector3.zero;
         }
 
         currentVelocity = Vector3.Lerp(currentVelocity, wishVelocity, currentRateSpeed * Time.deltaTime);
 
         playerController.Move(currentVelocity * playerSpeed * Time.deltaTime);
+        realVelocity = playerController.velocity;
+        playerController.Move(gravityVelocity * Time.deltaTime);
+
+
+        Debug.Log(realVelocity.magnitude);
+
     }
 
     private void CameraRotation()
@@ -159,29 +157,12 @@ public class PlayerMovement : MonoBehaviour
         playerHead.transform.localEulerAngles = Vector3.right * xRotation;
     }
 
-    private void PlayerSlope()
-    {
-        RaycastHit hit;
-
-        if (!Physics.Raycast(playerFeet.transform.position, Vector3.down, out hit, slopeDistance, groundLayer))
-            return;
-
-        Vector3 normal = hit.normal;
-
-        if (normal.y < 0.9f)
-        {
-            Vector3 slopeDirection = Vector3.ProjectOnPlane(Vector3.down, normal).normalized;
-            Vector3 slopeVelocity = slopeDirection * playerSpeed * Time.deltaTime;
-            Vector3 velocity = playerController.velocity;
-            velocity += slopeVelocity;
-
-            playerController.SimpleMove(velocity);
-        }
-    } 
-
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Vector3 normal = hit.normal;
+
+        if (hit.gameObject.layer == groundLayer.value)
+            return;
 
         // Checking if the player is colliding with a wall
         if (normal.y == 0)
