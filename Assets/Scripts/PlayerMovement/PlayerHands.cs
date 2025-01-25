@@ -91,7 +91,7 @@ public class PlayerHands : MonoBehaviour
         if (playerMovement.IsGrounded)
             return;
 
-        Debug.Log(playerMovement.Velocity);
+        //Debug.Log(playerMovement.Velocity);
 
         float xRotation = playerMovement.Velocity.y * 0.1f;
         xRotation = Mathf.Clamp(xRotation, -89f, 89f);

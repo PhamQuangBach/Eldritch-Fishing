@@ -15,7 +15,7 @@ public class PlayerHead : MonoBehaviour
     [SerializeField]
     private Sprite baseReticle;
 
-    public BaseInteractble currentInteractableObject;
+    private BaseInteractble currentInteractableObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,7 +59,7 @@ public class PlayerHead : MonoBehaviour
     BaseInteractble CheckInteractable(){
         Vector3 forwardDirection = transform.forward;
         RaycastHit hit;
-        if  (Physics.Raycast(transform.position, forwardDirection, out hit, 10)){
+        if  (Physics.Raycast(transform.position + forwardDirection * 0.5f, forwardDirection, out hit, 10)){
             return hit.collider.gameObject.GetComponent<BaseInteractble>();
         }
         else{
