@@ -59,6 +59,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_WeirdFish2
       objectReference: {fileID: 0}
+    - target: {fileID: 4232911366485924177, guid: 69a7120f15c39cc4f87b732811240cd3, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468918100706742853, guid: 69a7120f15c39cc4f87b732811240cd3, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7342310087651636420, guid: 69a7120f15c39cc4f87b732811240cd3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

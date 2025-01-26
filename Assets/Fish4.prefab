@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_WeirdFish3
       objectReference: {fileID: 0}
+    - target: {fileID: 6707567913066566375, guid: 46872dc57bd59784280daef984bae015, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7011465359660046273, guid: 46872dc57bd59784280daef984bae015, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -98,6 +102,10 @@ PrefabInstance:
     - target: {fileID: 7011465359660046273, guid: 46872dc57bd59784280daef984bae015, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7603607076628263671, guid: 46872dc57bd59784280daef984bae015, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
