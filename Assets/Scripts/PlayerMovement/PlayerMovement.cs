@@ -244,4 +244,9 @@ public class PlayerMovement : MonoBehaviour
         deathScreen.StartGameOver();
         screenFade.FadeIn();
     }
+
+    public void KillTimeOut()
+    {
+        Kill(transform.position);
+    }
 }

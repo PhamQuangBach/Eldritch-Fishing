@@ -79,8 +79,6 @@ public class Monster : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"Monster Works: {currentMonsterState}");
-
         monsterController.Move(monsterVelocity * Time.deltaTime);
 
         LookAtPlayer();

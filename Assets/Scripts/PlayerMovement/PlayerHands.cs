@@ -177,7 +177,6 @@ public class PlayerHands : MonoBehaviour
 
             return;
         }
-        Debug.Log(hit.collider.tag);
         
         if (hit.collider.tag != "Interactable")
         {
