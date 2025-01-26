@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         UpdateCurrentTime();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void UpdateCurrentTime()
@@ -95,6 +101,12 @@ public class GameManager : MonoBehaviour
     {
         gameState = GameState.Win;
 
+        StartCoroutine(WinTimer());
+    }
+
+    private IEnumerator WinTimer()
+    {
+        yield return new WaitForSeconds(5f);
         PlayerMovement.instance.Win();
     }
 

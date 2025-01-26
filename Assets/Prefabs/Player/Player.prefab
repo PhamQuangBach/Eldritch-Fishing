@@ -2915,7 +2915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b92ee38fc29af44cafddf660d689ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 60
+  maxTime: 590
   moonMaterial: {fileID: 2100000, guid: e24de062f5709a849a3307173bef8263, type: 2}
   pointLight: {fileID: 5232096659129492720}
 --- !u!1 &5774495027847577318
@@ -4484,7 +4484,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hello world
+  m_text: 'You survived to fish another day! Now you can go back to your tent and
+    enjoy your hard earned meal.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
