@@ -15,6 +15,9 @@ public class FishingRod : BaseWeapon
 
     [SerializeField]
     private AudioSource[] audioNibbles;
+    
+    [SerializeField]
+    private AudioSource rodOn;
 
     private float bobbingCycle = 0;
     private int bobbingNibble = 0;
@@ -26,7 +29,9 @@ public class FishingRod : BaseWeapon
     private bool isCasted;
 
     public override void OnPrimaryAttack() { }
-    public override void OnEquip() { }
+    public override void OnEquip() { 
+        rodOn.Play();
+    }
     public override void OnUnequip() { }
     public override void OnSecondaryAttack() { }
 

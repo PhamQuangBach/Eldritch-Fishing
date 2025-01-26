@@ -4,6 +4,9 @@ public class Flashlight : BaseWeapon
 {
     [SerializeField]
     private LightSource lightSource;
+    
+    [SerializeField]
+    private AudioSource lanternON;
 
     [SerializeField]
     private float inactiveRadius;
@@ -18,7 +21,7 @@ public class Flashlight : BaseWeapon
 
     public override void OnEquip() { 
         lightSource.SetLightLevel(activeRadius);
-        
+        lanternON.Play();
     }
     public override void OnUnequip() { 
         lightSource.SetLightLevel(inactiveRadius);

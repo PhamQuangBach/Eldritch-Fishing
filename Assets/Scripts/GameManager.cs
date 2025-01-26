@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public static bool IsPaused { get => instance.isPaused; }
     public static GameState GameState { get => instance.gameState; }
 
+    [SerializeField]
+    private float maxTime = 600;
+
     public static GameManager instance;
 
     //Means if this is first attempt, brain too tired, used to skip intro window, in case player died and restarted
@@ -41,6 +44,10 @@ public class GameManager : MonoBehaviour
     private void UpdateCurrentTime()
     {
         curTime += Time.deltaTime;
+        if (curTime > maxTime){
+            SetGameState(GameState.TimeOut);
+            PlayerMovement.instance.KillTimeOut();
+        }
     }
 
     public void PauseGame()
