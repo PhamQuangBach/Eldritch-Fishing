@@ -751,7 +751,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckDistance: 0.2
+  groundCheckDistance: 0.4
   screenFade: {fileID: 4323078736232564140}
   deathScreen: {fileID: 7313821655530142880}
 --- !u!1 &3468357845829613214
