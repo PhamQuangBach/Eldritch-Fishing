@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_Fish
       objectReference: {fileID: 0}
+    - target: {fileID: 742186510295159917, guid: 113926cd23768754185628ddb12109d8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3504350895298161431, guid: 113926cd23768754185628ddb12109d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -98,6 +102,10 @@ PrefabInstance:
     - target: {fileID: 3504350895298161431, guid: 113926cd23768754185628ddb12109d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500419397255172277, guid: 113926cd23768754185628ddb12109d8, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

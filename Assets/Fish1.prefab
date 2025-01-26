@@ -56,6 +56,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1808371302713156513}
     m_Modifications:
+    - target: {fileID: 250737617075745438, guid: 30f4d4313edcc1f41b055f75cf9adba5, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3591231916546505243, guid: 30f4d4313edcc1f41b055f75cf9adba5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -99,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 5732956897506317774, guid: 30f4d4313edcc1f41b055f75cf9adba5, type: 3}
       propertyPath: m_Name
       value: prefab_Fish1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732956897506317774, guid: 30f4d4313edcc1f41b055f75cf9adba5, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
