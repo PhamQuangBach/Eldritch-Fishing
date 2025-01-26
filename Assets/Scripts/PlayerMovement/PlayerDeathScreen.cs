@@ -16,6 +16,15 @@ public class PlayerDeathScreen : MonoBehaviour
 
     private bool canRestart = false;
 
+    public AudioClip deathSound;
+    public AudioClip moonSound;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         RestartGame();
@@ -26,13 +35,17 @@ public class PlayerDeathScreen : MonoBehaviour
         switch (GameManager.instance.GetGameState())
         {
             case GameState.Death:
+                audioSource.clip = deathSound;
                 flavourText.SetText(deathMonster);
                 break;
 
             case GameState.TimeOut:
+                audioSource.clip = moonSound;
                 flavourText.SetText(deathMoon);
                 break;
         }
+
+        audioSource.Play();
 
         
 
