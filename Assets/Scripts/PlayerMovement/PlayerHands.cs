@@ -88,11 +88,15 @@ public class PlayerHands : MonoBehaviour
     /// </summary>
     private void ChangeWeapon()
     {
-        //TO DO: If Rod LINE exists, break it
         if (!Input.GetKeyDown(KeyCode.Mouse1))
             return;
 
         currentWeaponSlot++;
+
+        if (currentWeapon is FishingRod fishingRod)
+        {
+            fishingRod.ClearLine();
+        }
 
         if (currentWeaponSlot >= weapons.Count)
             currentWeaponSlot = 0;
