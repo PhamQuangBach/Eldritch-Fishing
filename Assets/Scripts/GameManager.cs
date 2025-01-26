@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    //Means if this is first attempt, brain too tired, used to skip intro window, in case player died and restarted
+    public static bool FirstPlay = true;
+
     private GameState gameState = GameState.Prepare;
 
     private bool isPaused = false;

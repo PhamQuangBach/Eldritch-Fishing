@@ -20,17 +20,28 @@ public class PlayerStartingPrologue : MonoBehaviour
 
     private IEnumerator PrologueStart()
     {
-        yield return new WaitForSecondsRealtime(timeToReadPrologue);
-        playerMovement.ScreenFade.FadeOut();
 
-        yield return new WaitForSeconds(5f);
+
+        if (GameManager.FirstPlay)
+        {
+            GameManager.FirstPlay = false;
+
+            yield return new WaitForSecondsRealtime(timeToReadPrologue);
+            playerMovement.ScreenFade.FadeOut();
+
+            yield return new WaitForSeconds(5f);
+        }
+        else
+        {
+            playerMovement.ScreenFade.FadeOut();  
+        }
 
         GameManager manager = GameManager.instance;
         if (manager != null)
         {
             manager.StartGame();
-
             gameObject.SetActive(false);
         }
+
     }
 }
