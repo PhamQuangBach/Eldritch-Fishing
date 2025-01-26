@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerDeathScreen : MonoBehaviour
 {
-    private const string deathMonster = "Flesh is torn from your bones, as your soul is ripped from your body. Your mind wanders to your family, your friends. They will not remember you.";
-    private const string deathMoon = "The blood moon has risen. You look to the lake, it beckons you. The coldness sends shivers up your spine. The dark glacial waters are comforting. You close your eyes as you feel HIM caress you.";
+    private const string deathMonster = "Flesh is torn from your bones, as your soul is ripped from your body.\nYour mind wanders to your family, your friends.\nThey will not remember you.";
+    private const string deathMoon = "The blood moon has risen. You look to the lake, it beckons you.\nThe coldness sends shivers up your spine.\nThe dark glacial waters are comforting.\nYou close your eyes as you feel HIM caress you.";
 
     [SerializeField]
     private TextMeshProUGUI flavourText;
