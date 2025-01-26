@@ -104,7 +104,7 @@ public class FishingSpot : BaseInteractble
                 }
             }
             
-            if ((playerCamera.position - transform.position).sqrMagnitude > breakDistance * breakDistance){
+            if (Vector3.Distance(transform.position, PlayerMovement.instance.transform.position) > breakDistance){
                 EndFishBite();
             }
         }

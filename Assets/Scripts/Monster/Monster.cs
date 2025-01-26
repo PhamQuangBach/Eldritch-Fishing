@@ -198,7 +198,7 @@ public class Monster : MonoBehaviour
         if (angle <= attackAngle && canAttack && distance <= safeDinstance)
         {
             currentMonsterState = MonsterState.Attack;
-            monsterAudio.Play();
+            //monsterAudio.Play();
         }
     }
     
