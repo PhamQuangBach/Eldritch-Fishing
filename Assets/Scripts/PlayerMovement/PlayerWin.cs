@@ -18,13 +18,11 @@ public class PlayerWin : MonoBehaviour
 
     private GameManager gameManager;
 
-    private bool creditsStarted = true;
+    private bool creditsStarted = false;
 
     private void Start()
     {
         gameManager = GameManager.instance;
-
-        StartCoroutine(WinTimer());
     }
 
     private void Update()

@@ -5,7 +5,7 @@ public class FishManager : MonoBehaviour
     public static FishManager instance;
 
     public static int FishCaught { get => instance.fishCaught; }
-    public int fishGoal = 5;
+    public int fishGoal = 2;
     private int fishCaught = 0;
 
     [SerializeField]
@@ -29,7 +29,9 @@ public class FishManager : MonoBehaviour
         if (fishCaught == fishGoal)
         {
             Debug.Log("WIN!!!");
+            GameManager.instance.Win();
             Monster.instance.StopMovement();
+
             //ACTIVATE WIN instance
         }
 

@@ -1339,6 +1339,7 @@ MonoBehaviour:
   groundCheckDistance: 0.4
   screenFade: {fileID: 4323078736232564140}
   deathScreen: {fileID: 7313821655530142880}
+  playerWin: {fileID: 1749418058489023230}
 --- !u!1 &3468357845829613214
 GameObject:
   m_ObjectHideFlags: 0

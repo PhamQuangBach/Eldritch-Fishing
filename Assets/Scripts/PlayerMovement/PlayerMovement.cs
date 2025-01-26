@@ -256,7 +256,7 @@ public class PlayerMovement : MonoBehaviour
     public void Win()
     {
         playerWin.gameObject.SetActive(true);
-
+        ScreenFade.FadeIn();
         playerWin.Win();
     }
 }
