@@ -1393,6 +1393,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: fishes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: 'fishes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6198114955471722375, guid: 0316f32e3cc5d124da402c0c1cbcc755, type: 3}
+    - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: 'fishes.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6198114955471722375, guid: 91548973e71e1034897a8a3d1e3767c4, type: 3}
+    - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: 'fishes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6198114955471722375, guid: f3b3e324d5ad7844ab14da553f6da60c, type: 3}
     - target: {fileID: 7486440078465451522, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1
