@@ -152,6 +152,7 @@ public class Monster : MonoBehaviour
 
         if (distance <= attackDistance)
         {
+            GameManager.instance.SetGameState(GameState.Death);
             playerMovement.Kill(transform.position);
             monsterIsAlive = false;
 
