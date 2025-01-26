@@ -64,15 +64,26 @@ public class GameManager : MonoBehaviour
         gameState = GameState.Game;
     }
 
-    public void OnDeath()
+    //This never seems to be called!
+    /*public void OnDeath()
     {
         gameState = GameState.Death;
-    }
+    }*/
 
     public void RestartGame()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public GameState GetGameState()
+    { 
+        return gameState;
+    }
+
+    public void SetGameState(GameState newState)
+    {
+        gameState = newState;
     }
 }

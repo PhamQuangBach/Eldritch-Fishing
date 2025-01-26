@@ -1,10 +1,17 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 
 
 public class PlayerDeathScreen : MonoBehaviour
 {
+    private const string deathMonster = "Flesh is torn from your bones, as your soul is ripped from your body. Your mind wanders to your family, your friends. They will not remember you.";
+    private const string deathMoon = "The blood moon has risen. You look to the lake, it beckons you. The coldness sends shivers up your spine. The dark glacial waters are comforting. You close your eyes as you feel HIM caress you.";
+
     [SerializeField]
+    private TextMeshProUGUI flavourText;
+
     private float timeToRestart = 1f;
 
     private bool canRestart = false;
@@ -16,6 +23,19 @@ public class PlayerDeathScreen : MonoBehaviour
 
     public void StartGameOver()
     {
+        switch (GameManager.instance.GetGameState())
+        {
+            case GameState.Death:
+                flavourText.SetText(deathMonster);
+                break;
+
+            case GameState.TimeOut:
+                flavourText.SetText(deathMoon);
+                break;
+        }
+
+        
+
         StartCoroutine(WaitUntilRestart());
     }
 
