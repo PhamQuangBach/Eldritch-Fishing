@@ -36,6 +36,9 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private float safeDinstance = 18f;
 
+    [SerializeField]
+    private Transform monsterBody;
+
     public static Monster instance;
 
     private CharacterController monsterController;
@@ -80,6 +83,10 @@ public class Monster : MonoBehaviour
                 AttackMovement();
                 break;
         }
+
+        float angle = Mathf.Atan2(monsterVelocity.x, monsterVelocity.z) * Mathf.Rad2Deg;
+
+        monsterBody.localEulerAngles = new Vector3(0, angle, 0);
 
         monsterController.Move(monsterVelocity * Time.deltaTime);
 
@@ -160,7 +167,9 @@ public class Monster : MonoBehaviour
         {
             GameManager.instance.SetGameState(GameState.Death);
             playerMovement.Kill(transform.position);
+            
             StopMovement();
+
 
             return;
         }
@@ -184,7 +193,9 @@ public class Monster : MonoBehaviour
 
         float angle = Vector3.Angle(monsterVelocity.normalized, attackPoint.forward);
 
-        if (angle <= attackAngle && canAttack)
+        float distance = Vector3.Distance(transform.position, playerMovement.transform.position);
+
+        if (angle <= attackAngle && canAttack && distance <= safeDinstance)
         {
             currentMonsterState = MonsterState.Attack;
             monsterAudio.Play();
