@@ -10,6 +10,8 @@ public class FootStepTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Trigger: {other.name}");
+
         if (other.tag != "Player")
             return;
 
