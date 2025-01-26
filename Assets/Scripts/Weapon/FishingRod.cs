@@ -28,6 +28,8 @@ public class FishingRod : BaseWeapon
 
     private bool isCasted;
 
+    private Transform currentFishingSpot;
+
     public override void OnPrimaryAttack() { }
     public override void OnEquip() { 
         rodOn.Play();
@@ -46,13 +48,16 @@ public class FishingRod : BaseWeapon
             bobbingCycle += Time.fixedDeltaTime * (fishBite? 10 : 2) * Mathf.PI / 2;
             bobber.transform.position += new Vector3(0, Mathf.Sin(bobbingCycle) * 0.1f * Time.fixedDeltaTime * (fishBite? 10 : 2), 0);
             if(bobbingNibble < Mathf.Round(bobbingCycle / Mathf.PI / 2)){
-                audioNibbles[Random.Range(0, audioNibbles.Length)].Play();
+                int r = Random.Range(0, audioNibbles.Length);
+                audioNibbles[r].transform.position = currentFishingSpot.transform.position;
+                audioNibbles[r].Play();
                 bobbingNibble += 1;
             }
         }
     }
 
     public void CastLine(FishingSpot fishingSpot){
+        currentFishingSpot = fishingSpot.transform;
         isCasted = true;
         bobbingCycle = 0;
         bobbingNibble = 0;
