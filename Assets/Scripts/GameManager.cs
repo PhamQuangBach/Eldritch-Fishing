@@ -43,8 +43,12 @@ public class GameManager : MonoBehaviour
 
     private void UpdateCurrentTime()
     {
+        if (gameState == GameState.Win)
+            return;
+        
         curTime += Time.deltaTime;
-        if (curTime > maxTime){
+        if (curTime > maxTime)
+        {
             SetGameState(GameState.TimeOut);
             PlayerMovement.instance.KillTimeOut();
         }
@@ -85,6 +89,13 @@ public class GameManager : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void Win()
+    {
+        gameState = GameState.Win;
+
+        PlayerMovement.instance.Win();
     }
 
     public GameState GetGameState()

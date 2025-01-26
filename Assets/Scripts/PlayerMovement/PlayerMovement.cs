@@ -111,6 +111,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private PlayerDeathScreen deathScreen;
 
+    [SerializeField]
+    public PlayerWin playerWin;
+
     private PlayerState currentPlayerState = PlayerState.None;
 
     private CharacterController playerController;
@@ -248,5 +251,12 @@ public class PlayerMovement : MonoBehaviour
     public void KillTimeOut()
     {
         Kill(transform.position);
+    }
+
+    public void Win()
+    {
+        playerWin.gameObject.SetActive(true);
+
+        playerWin.Win();
     }
 }
