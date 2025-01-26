@@ -5,7 +5,10 @@ public class Moon : MonoBehaviour
 {
     [SerializeField]
     private float maxTime = 600;
-    
+
+    [SerializeField]
+    private Material moonMaterial;
+
     void Start()
     {
         
@@ -14,6 +17,9 @@ public class Moon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.eulerAngles = new Vector3(Mathf.Lerp(-168, -168 - 90, GameManager.CurTime / maxTime), 0, 0);
+        float t = GameManager.CurTime / maxTime;
+        transform.eulerAngles = new Vector3(Mathf.Lerp(120, 0, t), 0, 0);
+        moonMaterial.SetColor("_Color", Color.Lerp(new Color(0.6f, 0.6f, 0.6f, 1), new Color(0.5f, 0, 0, 1), t));
+        RenderSettings.fogColor = Color.Lerp(new Color(0f, 0f, 0f, 1), new Color(0.05f, 0, 0, 1), t);
     }
 }
