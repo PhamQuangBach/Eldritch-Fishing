@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5228151218816196361}
   - component: {fileID: 7603607076628263671}
   m_Layer: 0
-  m_Name: prefab_Fish4
+  m_Name: prefab_WeirdFish3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
