@@ -79,10 +79,14 @@ public class FishingSpot : BaseInteractble
     // Update is called once per frame
     void FixedUpdate()
     {
+        
+    }
+
+    void Update(){
         if (GameManager.IsPaused)
             return;
 
-        timer -= Time.fixedDeltaTime;
+        timer -= Time.deltaTime;
         if (state != FishingState.Idle){
             if (timer <= 0){
                 if (state == FishingState.Casting){
@@ -109,9 +113,7 @@ public class FishingSpot : BaseInteractble
                 objectName = "Fishing spot";
             }
         }
-    }
 
-    void Update(){
         if (state == FishingState.Biten){
             if (Input.GetMouseButtonDown(0)){
                 ReelIn();
