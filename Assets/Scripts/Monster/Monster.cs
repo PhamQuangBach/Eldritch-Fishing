@@ -39,6 +39,7 @@ public class Monster : MonoBehaviour
     public static Monster instance;
 
     private CharacterController monsterController;
+    private AudioSource monsterAudio;
 
     private MonsterState currentMonsterState = MonsterState.Move;
 
@@ -54,6 +55,7 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         monsterController = GetComponent<CharacterController>();
+        monsterAudio = GetComponent<AudioSource>();
 
         currentMoveToPoint = moveToPoints[currentMoveToPointIndex];
 
@@ -185,6 +187,7 @@ public class Monster : MonoBehaviour
         if (angle <= attackAngle && canAttack)
         {
             currentMonsterState = MonsterState.Attack;
+            monsterAudio.Play();
         }
     }
     
