@@ -36,6 +36,8 @@ public class Monster : MonoBehaviour
     [SerializeField]
     private float safeDinstance = 18f;
 
+    public static Monster instance;
+
     private CharacterController monsterController;
 
     private MonsterState currentMonsterState = MonsterState.Move;
@@ -54,6 +56,8 @@ public class Monster : MonoBehaviour
         monsterController = GetComponent<CharacterController>();
 
         currentMoveToPoint = moveToPoints[currentMoveToPointIndex];
+
+        instance = this;
     }
 
     private void Update()
@@ -154,7 +158,7 @@ public class Monster : MonoBehaviour
         {
             GameManager.instance.SetGameState(GameState.Death);
             playerMovement.Kill(transform.position);
-            monsterIsAlive = false;
+            StopMovement();
 
             return;
         }
@@ -182,5 +186,10 @@ public class Monster : MonoBehaviour
         {
             currentMonsterState = MonsterState.Attack;
         }
+    }
+    
+    public void StopMovement()
+    {
+        monsterIsAlive = false;
     }
 }

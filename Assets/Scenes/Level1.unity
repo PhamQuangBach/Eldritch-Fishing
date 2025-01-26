@@ -1394,6 +1394,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
+      propertyPath: fishGoal
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6862044809859757546, guid: 91fedf3e27385384fb530118c171b1d6, type: 3}
       propertyPath: fishes.Array.size
       value: 3
       objectReference: {fileID: 0}
