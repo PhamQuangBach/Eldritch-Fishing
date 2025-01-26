@@ -177,6 +177,7 @@ public class PlayerHands : MonoBehaviour
 
             return;
         }
+        Debug.Log(hit.collider.tag);
         
         if (hit.collider.tag != "Interactable")
         {
@@ -188,15 +189,11 @@ public class PlayerHands : MonoBehaviour
 
         BaseInteractble interactable = hit.collider.GetComponent<BaseInteractble>();
 
-        if (playerReticle.sprite == null)
+        if (interactable.reticleSprite == null)
         {
             playerReticle.sprite = baseReticle;
-            reticleDescription.text = "";
-
-            return;
         }
         
-        playerReticle.sprite = interactable.reticleSprite;
         reticleDescription.text = interactable.objectName;
     }
 }
