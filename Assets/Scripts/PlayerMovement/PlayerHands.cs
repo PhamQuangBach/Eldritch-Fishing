@@ -77,9 +77,10 @@ public class PlayerHands : MonoBehaviour
         if (Input.GetMouseButtonDown(0)){
             currentWeapon.OnPrimaryAttack();
         }
-
-        if (Input.GetMouseButtonDown(1))
-            currentWeapon.OnSecondaryAttack();
+       //Hope this doesnt break anything lol - Martin
+       // SEEMS FINE
+       // if (Input.GetMouseButtonDown(1))
+           // currentWeapon.OnSecondaryAttack();
     }
 
     /// <summary>
@@ -87,7 +88,8 @@ public class PlayerHands : MonoBehaviour
     /// </summary>
     private void ChangeWeapon()
     {
-        if (!Input.GetKeyDown(KeyCode.Tab))
+        //TO DO: If Rod LINE exists, break it
+        if (!Input.GetKeyDown(KeyCode.Mouse1))
             return;
 
         currentWeaponSlot++;
