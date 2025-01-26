@@ -4,6 +4,7 @@ public class FishingSpot : BaseInteractble
 {
     private enum FishingState{
         Idle,
+        Casting,
         Waiting,
         Biten,
         Destroyed,
@@ -84,7 +85,11 @@ public class FishingSpot : BaseInteractble
         timer -= Time.fixedDeltaTime;
         if (state != FishingState.Idle){
             if (timer <= 0){
-                if (state == FishingState.Waiting){
+                if (state == FishingState.Casting){
+                    timer = Random.Range(3f, 10f);
+                    state = FishingState.Waiting;
+                }
+                else if (state == FishingState.Waiting){
                     StartFishBite();
                 }
                 else if (state == FishingState.Biten){
@@ -120,11 +125,11 @@ public class FishingSpot : BaseInteractble
     }
 
     void StartFishing(){
-        state = FishingState.Waiting;
+        state = FishingState.Casting;
         fishingRod.CastLine(this);
         waterRing.Play();
         audioLure.Play();
-        timer = Random.Range(3f, 10f);
+        timer = 1;
         reticleSprite = null;
         objectName = "";
     }
